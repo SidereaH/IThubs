@@ -1,19 +1,16 @@
 const reloadButton = document.getElementById('reload') //кнопк обновления списка команд
 const listElement = document.getElementById('list')
+const authorizedName = document.getElementById('authorizedName')
 const loginBut = document.getElementById('loginBut') //кнопка входа в аккаунт
 teamStorage = window.localStorage
 console.log(teamStorage.getItem('succesfulSign'))
-let isStopped = false
-while(isStopped = false) {
-    if (isCurrentLocation("http://localhost:63342/frontend/index.html") === true && teamStorage.getItem('succesfulSign') === "true") {
-        window.location.href = 'http://localhost:63342/frontend/frontend/index2.html'
-        isStopped = true
-    } else if (isCurrentLocation("http://localhost:63342/frontend/index.html") === false && teamStorage.getItem('succesfulSign') === "true") {
-        window.location.href = 'http://localhost:63342/frontend/frontend/index2.html'
-        isStopped = true
-    }
-}
 
+if (isCurrentLocation("http://127.0.0.1:5500/index.html") === true && teamStorage.getItem('succesfulSign') === "true") {
+    window.location.href = 'http://127.0.0.1:5500/index2.html';
+} 
+else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
+    window.location.href = 'http://127.0.0.1:5500/index.html';
+} 
 class Team{ // класс команд, в котором есть конструктор класса, через который создаются команды
     constructor(name ,email, capitan, password, members){
         this.teamName = name
@@ -31,7 +28,7 @@ class Team{ // класс команд, в котором есть констр�
 }
 Team.instanes = []// массив с экземплярами объектов
 
-teamMembers = ["Vera Kostenko", "Andrey Hutornoy", "Nikita Eliseev"] //пример массива с участниками
+teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
 const habsyTeam = new Team("cringe", "hutornoyaa@gmail.com",  "Siderea", "Habsy2024", teamMembers ) // пример создания команды
 const habsyTeam2 = new Team("cringe","hutornoyaa2@gmail.com",  "Siderea2", "Habsy20242", teamMembers ) // пример создания команды
 Team.instanes.push(habsyTeam) //добавляем команду в масив
@@ -42,7 +39,7 @@ Team.instanes.push(habsyTeam2)
 //console.log(teamow)
 
 let succesful = false
-if (isCurrentLocation('http://localhost:63342/frontend/frontend/index.html') === true){
+if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){
     console.log("first windows")
     loginBut.onclick = function() { //обработка клика по кнопке входа
         let email = document.getElementById('emailInput').value
@@ -54,7 +51,7 @@ if (isCurrentLocation('http://localhost:63342/frontend/frontend/index.html') ===
                 let passwordTeam = Team.instanes[team].getPass() //получение пароля и логина
                 if(email === emailTeam && passwordTeam === password){ //сравнение логина и пароля введенного с экземпляром
                     teamStorage.setItem("authorizedTeam", Team.instanes[team].teamName)
-                    teamStorage.setItem("succesfulSign", true)
+                    teamStorage.setItem("succesfulSign", "true")
                     window.location.href = 'index2.html'; //если да, переход дальше по страницам
                     succesful = true
                 }
@@ -65,7 +62,7 @@ if (isCurrentLocation('http://localhost:63342/frontend/frontend/index.html') ===
             }
             else{
                 alert("Неверный логин или пароль")
-                teamStorage.setItem("succesfulSign", false)
+                teamStorage.setItem("succesfulSign", "false")
             }
         }
         else if(isEmpty(email) === true && isEmpty(password) === true ){
@@ -84,50 +81,33 @@ else {
 }
 
 function isEmpty(str) {// функция проверки на пустую строку
-    if (str === '') 
-      return true      
-    else return false
-  }
+    return str === '';
+}
 function isCurrentLocation(url){
     let currentUrl = window.location.href;
-    if(currentUrl === url){
-        return true
-    }
-    return false
+    return currentUrl === url;
 }
-
-
-
 function render() {
     console.log( teamStorage.getItem("succesfulSign"), teamStorage.getItem("authorizedTeam"))
     listElement.innerHTML = ''
 
     if(Team.instanes.length === 0){
         listElement.innerHTML = '<p>Нет элементов</p>'
-
     }
     for (let i = 0; i < Team.instanes.length; i++){
-
         listElement.insertAdjacentHTML('beforeend', getNoteTemplate(Team.instanes[i], i))
-
     }
 
 }
 let isStoppedAuthoriz = false
-if (isCurrentLocation('http://localhost:63342/frontend/frontend/index2.html') === true ){
-    if(teamStorage.getItem('succesfulSign') == "true"){
+if (isCurrentLocation('http://127.0.0.1:5500/index2.html') === true ){
+    if(teamStorage.getItem('succesfulSign') === "true"){
         render()
-        reloadButton.onclick = function () {
-            if(listElement.value.length === 0){
-                return
-            }
-            render()
-            listElement.value = ''
-        }
+        renderTeamName()
     }
     else{
         while (isStoppedAuthoriz === false  ){
-            window.location.href = 'http://localhost:63342/frontend/frontend/index.html'
+            window.location.href = 'http://127.0.0.1:5500/index.html'
             isStoppedAuthoriz = true
         }
     }
@@ -136,39 +116,35 @@ if (isCurrentLocation('http://localhost:63342/frontend/frontend/index2.html') ==
 }
 else if(teamStorage.getItem('succesfulSign') === false){
     console.log(teamStorage.getItem('succesfulSign'))
-    window.location.href = 'http://localhost:63342/frontend/frontend/index2.html'
+    window.location.href = 'http://127.0.0.1:5500/index2.html'
 }
 
 
 function getNoteTemplate(team, index){
     return  `
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span class = "team">${team.teamEmail}</span>
+        <span class = "team ">${team.teamEmail}</span>
         <span class = "team">${team.capitan}</span>
         <span class = "team">${team.members}</span>
       </li>`
 }
 function renderTeamName(){
-    listElement.innerHTML = ''
+    authorizedName.innerHTML = ''
 
     if(teamStorage.getItem("authorizedTeam") === null){
-        listElement.innerHTML = '<p>Вы неавторизовались</p>'
+        authorizedName.innerHTML = '<p>Вы неавторизовались</p>'
     }
-    for (let i = 0; i < Team.instanes.length; i++){
+    
+    authorizedName.insertAdjacentHTML('beforeend', getTeamNameTemplate())
 
-        listElement.insertAdjacentHTML('beforeend', getNoteTemplate(Team.instanes[i], i))
-
-    }
+    
 }
 
-function getTeamNameTemplate(team, index){
+function getTeamNameTemplate(){
     return `
     <p>
     ${teamStorage.getItem("authorizedTeam")}
     </p>
-    <p>
-    ${teamStorage.getItem("succesfulSign")}
-    </p>
-`
+    `
 }
 

@@ -127,7 +127,7 @@ table {
 :root {
   --font-family: "Inter", sans-serif !important;
 }
-body {
+.authocont {
   background-color: rgba(228, 15, 15, 0) !important;
   display: flex;
   align-items: center;
