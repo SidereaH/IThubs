@@ -5,14 +5,16 @@ const loginBut = document.getElementById('loginBut') //кнопка входа �
 teamStorage = window.localStorage
 console.log(teamStorage.getItem('succesfulSign'))
 
-if (isCurrentLocation("http://127.0.0.1:5500/index.html") === true && teamStorage.getItem('succesfulSign') === "true") {
-    window.location.href = 'http://127.0.0.1:5500/index2.html';
+if (isCurrentLocation("index.html") === true && teamStorage.getItem('succesfulSign') === "true") { 
+    //если открыта начальная страница ( входа ) и пользователь авторизован - то переброс на вторую страницу
+    window.location.href = 'index2.html';
 } 
-else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
-    window.location.href = 'http://127.0.0.1:5500/index.html';
+else if (isCurrentLocation("index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
+    //если вторая (где юзеры) и неавторизован - переброс на авторизацию
+    window.location.href = 'index.html';
 } 
 class Team{ // класс команд, в котором есть конструктор класса, через который создаются команды
-    constructor(name ,email, capitan, password, members){
+    constructor(name ,email, capitan, password, members){ //конструктор, с помощью которого создаются экземпляры класса
         this.teamName = name
         this.teamEmail = email
         this.capitan = capitan
@@ -29,43 +31,44 @@ class Team{ // класс команд, в котором есть констр�
 Team.instanes = []// массив с экземплярами объектов
 
 teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
-const habsyTeam = new Team("cringe", "hutornoyaa@gmail.com",  "Siderea", "Habsy2024", teamMembers ) // пример создания команды
-const habsyTeam2 = new Team("cringe","hutornoyaa2@gmail.com",  "Siderea2", "Habsy20242", teamMembers ) // пример создания команды
-Team.instanes.push(habsyTeam) //добавляем команду в масив
+const habsyTeam = new Team("cringe", "hutornoyaa@gmail.com",  "Siderea", "Habsy2024", teamMembers ) // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+const habsyTeam2 = new Team("cringe","hutornoyaa2@gmail.com",  "Siderea2", "Habsy20242", teamMembers )
+Team.instanes.push(habsyTeam) //добавляем команду в масив, хранящий экземпляры класса
 Team.instanes.push(habsyTeam2)
-//teamStorage.setItem("teamSigned in", JSON.stringify(Team.instanes)) //преобразуем команды в json и добавляем в локальное хранилище
 
+
+//teamStorage.setItem("teamSigned in", JSON.stringify(Team.instanes)) //преобразуем команды в json и добавляем в локальное хранилище
 //let teamow = teamStorage.getItem("teams")
 //console.log(teamow)
 
-let succesful = false
-if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){
+let succesful = false//переменная успешной авторизации
+if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){//проверка, если текущая страница - страница авторизации
     console.log("first windows")
     loginBut.onclick = function() { //обработка клика по кнопке входа
-        let email = document.getElementById('emailInput').value
-        let password = document.getElementById('passInput').value// получаем введенное значение из логина и пароля
+        let email = document.getElementById('emailInput').value //получаем, что ввел пользователь в поле логина
+        let password = document.getElementById('passInput').value// получаем, что ввел пользователь в поле пароля
         if(isEmpty(email) === false && isEmpty(password) === false) { //если поля непустые
 
             for(const team in Team.instanes){ // перебор экземпляров класса Team (перебор команд)
-                let emailTeam = Team.instanes[team].getLog()
-                let passwordTeam = Team.instanes[team].getPass() //получение пароля и логина
-                if(email === emailTeam && passwordTeam === password){ //сравнение логина и пароля введенного с экземпляром
-                    teamStorage.setItem("authorizedTeam", Team.instanes[team].teamName)
-                    teamStorage.setItem("succesfulSign", "true")
+                let emailTeam = Team.instanes[team].getLog()//получение логина команды (сохраненного)
+                let passwordTeam = Team.instanes[team].getPass() //получение пароля команды (сохраненного)
+                if(email === emailTeam && passwordTeam === password){ //сравнение введенного логина и пароля  с полученными из экземпляра класса
+                    teamStorage.setItem("authorizedTeam", Team.instanes[team].teamName) //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
+                    teamStorage.setItem("succesfulSign", "true")// сохраняем, авторизован ли человек
                     window.location.href = 'index2.html'; //если да, переход дальше по страницам
                     succesful = true
                 }
             }
-            if(succesful === true){ //если правильно ввели пароль
+            /*if(succesful === true){ //если правильно ввели пароль
 
                 alert("succesful")
             }
             else{
                 alert("Неверный логин или пароль")
                 teamStorage.setItem("succesfulSign", "false")
-            }
+            }*/
         }
-        else if(isEmpty(email) === true && isEmpty(password) === true ){
+        else if(isEmpty(email) === true && isEmpty(password) === true ){ //валидация полей 
             alert("Введите логин и пароль")
         }
         else if(isEmpty(email) === true ){
@@ -76,18 +79,18 @@ if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){
         }
     }
 }
-else {
-    console.log("not first window")
-}
 
-function isEmpty(str) {// функция проверки на пустую строку
+
+function isEmpty(str) {// функция проверки на пустую строку (может вызваться где угодно, с любой строкой, возвращает true false)
     return str === '';
 }
-function isCurrentLocation(url){
+
+function isCurrentLocation(url){ //функция проверяющая совпадает ли вставленный url с текущим
     let currentUrl = window.location.href;
     return currentUrl === url;
 }
-function render() {
+
+function render() { 
     console.log( teamStorage.getItem("succesfulSign"), teamStorage.getItem("authorizedTeam"))
     listElement.innerHTML = ''
 
@@ -147,4 +150,3 @@ function getTeamNameTemplate(){
     </p>
     `
 }
-
