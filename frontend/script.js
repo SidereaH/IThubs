@@ -90,15 +90,16 @@ function isCurrentLocation(url){ //функция проверяющая сов�
     return currentUrl === url;
 }
 
-function render() { 
-    console.log( teamStorage.getItem("succesfulSign"), teamStorage.getItem("authorizedTeam"))
-    listElement.innerHTML = ''
+function render() { // рендер всех команд
+    console.log( teamStorage.getItem("succesfulSign"), teamStorage.getItem("authorizedTeam"))// консольная проверка какие команды есть
+    listElement.innerHTML = ''//делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
 
-    if(Team.instanes.length === 0){
+    if(Team.instanes.length === 0){// если команд нет -
         listElement.innerHTML = '<p>Нет элементов</p>'
     }
-    for (let i = 0; i < Team.instanes.length; i++){
-        listElement.insertAdjacentHTML('beforeend', getNoteTemplate(Team.instanes[i], i))
+    for (let i = 0; i < Team.instanes.length; i++){//перебор и вывод всех команд
+        listElement.insertAdjacentHTML('beforeend', getNoteTemplate(Team.instanes[i], i)) //.innerAdjacentHTML (из курса джавы, работа с заметками)
+        //передаем где (beforeend) и что вставлять - getNoteTemplate;
     }
 
 }
@@ -123,7 +124,7 @@ else if(teamStorage.getItem('succesfulSign') === false){
 }
 
 
-function getNoteTemplate(team, index){
+function getNoteTemplate(team, index){ //функция, использующаяся в render; Передается команда(team), из которой берутся хначения экземпляра класса Team
     return  `
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <span class = "team ">${team.teamEmail}</span>
@@ -131,8 +132,9 @@ function getNoteTemplate(team, index){
         <span class = "team">${team.members}</span>
       </li>`
 }
-function renderTeamName(){
-    authorizedName.innerHTML = ''
+
+function renderTeamName(){ //функция рендера названия команды, как в соц сетях показывает кто сейчас авторизован; работает по аналогии с рендером выше
+    authorizedName.innerHTML = ''//authorizedName - элемент в html в который будет вставляться информация
 
     if(teamStorage.getItem("authorizedTeam") === null){
         authorizedName.innerHTML = '<p>Вы неавторизовались</p>'
@@ -143,10 +145,13 @@ function renderTeamName(){
     
 }
 
-function getTeamNameTemplate(){
+function getTeamNameTemplate(){//шаблон вывода авторизованной сейчас команды ; Возвращается  html, который удет втавляться в рендер
     return `
     <p>
-    ${teamStorage.getItem("authorizedTeam")}
+    ${  
+        teamStorage.getItem("authorizedTeam")//берем из локального хранилища авторизованну команду
+    }
+    
     </p>
     `
 }
