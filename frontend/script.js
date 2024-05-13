@@ -4,15 +4,18 @@ const authorizedName = document.getElementById('authorizedName')
 const loginBut = document.getElementById('loginBut') //кнопка входа в аккаунт
 teamStorage = window.localStorage
 console.log(teamStorage.getItem('succesfulSign'))
-
-if (isCurrentLocation("http://127.0.0.1:5500/index.html") === true && teamStorage.getItem('succesfulSign') === 'true') { 
+for(let i = 0; i =0 ; i++){
+    if (isCurrentLocation("http://127.0.0.1:5500/index.html") === true && teamStorage.getItem('succesfulSign') === 'true') { 
     //если открыта начальная страница ( входа ) и пользователь авторизован - то переброс на вторую страницу
-    window.location.href = 'http://127.0.0.1:5500/index2.html';
-} 
-else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
+        window.location.href = 'http://127.0.0.1:5500/index2.html';
+    
+    } 
+    else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
     //если вторая (где юзеры) и неавторизован - переброс на авторизацию
-    window.location.href = 'index.html';
-} 
+        window.location.href = 'index.html';
+    } 
+}
+
 class Team{ // класс команд, в котором есть конструктор класса, через который создаются команды
     constructor(name ,email, capitan, password, members){ //конструктор, с помощью которого создаются экземпляры класса
         this.teamName = name
@@ -38,8 +41,8 @@ const habsyTeam2 = new Team("cringe","hutornoyaa2@gmail.com",  "Siderea2", "Habs
 Team.instanes.push(habsyTeam) //добавляем команду в масив, хранящий экземпляры класса
 Team.instanes.push(habsyTeam2)
 
-
-//teamStorage.setItem("teamSigned in", JSON.stringify(Team.instanes)) //преобразуем команды в json и добавляем в локальное хранилище
+//teamStorage.setItem("teamSigned in", JSON.stringify(Team.instanes)) 
+//преобразуем команды в json и добавляем в локальное хранилище
 //let teamow = teamStorage.getItem("teams")
 //console.log(teamow)
 
@@ -82,9 +85,8 @@ if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){//прове
     }
 }
 
-
 function isEmpty(str) {// функция проверки на пустую строку (может вызваться где угодно, с любой строкой, возвращает true false)
-    return str === '';
+    return str === ''; //true если пустая строка (соответсвует '')
 }
 
 function isCurrentLocation(url){ //функция проверяющая совпадает ли вставленный url с текущим
@@ -93,32 +95,25 @@ function isCurrentLocation(url){ //функция проверяющая сов�
 }
 
 function render() { // рендер всех команд
-    console.log( teamStorage.getItem("succesfulSign"), teamStorage.getItem("authorizedTeam"))// консольная проверка какие команды есть
+    console.log( teamStorage.getItem("authorizedTeam")) // кто авторизовался
+    
     listElement.innerHTML = ''//делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
-
     if(Team.instanes.length === 0){// если команд нет -
         listElement.innerHTML = '<p>Нет элементов</p>'
     }
     for (let i = 0; i < Team.instanes.length; i++){//перебор и вывод всех команд
-        listElement.insertAdjacentHTML('beforeend', getNoteTemplate(Team.instanes[i], i)) //.innerAdjacentHTML (из курса джавы, работа с заметками)
+        listElement.insertAdjacentHTML('beforeend', getTeamTemplate(Team.instanes[i])) //.innerAdjacentHTML (из курса джавы, работа с заметками)
         //передаем где (beforeend) и что вставлять - getNoteTemplate;
     }
-
 }
+
+
 let isStoppedAuthoriz = false
 if (isCurrentLocation('http://127.0.0.1:5500/index2.html') === true ){
     if(teamStorage.getItem('succesfulSign') === "true"){
         render()
         renderTeamName()
     }
-    else{
-        while (isStoppedAuthoriz === false  ){
-            window.location.href = 'http://127.0.0.1:5500/index.html'
-            isStoppedAuthoriz = true
-        }
-    }
-
-
 }
 else if(teamStorage.getItem('succesfulSign') === false){
     console.log(teamStorage.getItem('succesfulSign'))
@@ -126,25 +121,21 @@ else if(teamStorage.getItem('succesfulSign') === false){
 }
 
 
-function getNoteTemplate(team, index){ //функция, использующаяся в render; Передается команда(team), из которой берутся хначения экземпляра класса Team
+function getTeamTemplate(team){ //функция, использующаяся в render; Передается команда(team), из которой берутся хначения экземпляра класса Team
     return  `
     <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span class = "team ">${team.teamEmail}</span>
+        <span class = "team">${team.teamEmail}</span>
         <span class = "team">${team.capitan}</span>
         <span class = "team">${team.members}</span>
-      </li>`
+    </li>`
 }
 
 function renderTeamName(){ //функция рендера названия команды, как в соц сетях показывает кто сейчас авторизован; работает по аналогии с рендером выше
     authorizedName.innerHTML = ''//authorizedName - элемент в html в который будет вставляться информация
-
     if(teamStorage.getItem("authorizedTeam") === null){
         authorizedName.innerHTML = '<p>Вы неавторизовались</p>'
     }
-    
-    authorizedName.insertAdjacentHTML('beforeend', getTeamNameTemplate())
-
-    
+    authorizedName.insertAdjacentHTML('beforeend', getTeamNameTemplate())    
 }
 
 function getTeamNameTemplate(){//шаблон вывода авторизованной сейчас команды ; Возвращается  html, который удет втавляться в рендер
@@ -153,7 +144,6 @@ function getTeamNameTemplate(){//шаблон вывода авторизова�
     ${  
         teamStorage.getItem("authorizedTeam")//берем из локального хранилища авторизованну команду
     }
-    
     </p>
     `
 }
