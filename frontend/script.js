@@ -5,11 +5,11 @@ const loginBut = document.getElementById('loginBut') //кнопка входа �
 teamStorage = window.localStorage
 console.log(teamStorage.getItem('succesfulSign'))
 
-if (isCurrentLocation("index.html") === true && teamStorage.getItem('succesfulSign') === "true") { 
+if (isCurrentLocation("http://127.0.0.1:5500/index.html") === true && teamStorage.getItem('succesfulSign') === 'true') { 
     //если открыта начальная страница ( входа ) и пользователь авторизован - то переброс на вторую страницу
-    window.location.href = 'index2.html';
+    window.location.href = 'http://127.0.0.1:5500/index2.html';
 } 
-else if (isCurrentLocation("index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
+else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
     //если вторая (где юзеры) и неавторизован - переброс на авторизацию
     window.location.href = 'index.html';
 } 
@@ -21,6 +21,7 @@ class Team{ // класс команд, в котором есть констр�
         this.password = password
         this.members = members
     }
+    
     getLog(){ //метод, возвращающий почту команды
         return this.teamEmail
     }
@@ -28,6 +29,7 @@ class Team{ // класс команд, в котором есть констр�
         return this.password //метод, возвращающий пароль команды
     }
 }
+
 Team.instanes = []// массив с экземплярами объектов
 
 teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
