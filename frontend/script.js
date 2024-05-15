@@ -17,12 +17,15 @@ for(let i = 0; i =0 ; i++){
 }
 
 class Team{ // класс команд, в котором есть конструктор класса, через который создаются команды
-    constructor(name ,email, capitan, password, members){ //конструктор, с помощью которого создаются экземпляры класса
+    constructor(name ,email, capitan, password, members, description, banner,link){ //конструктор, с помощью которого создаются экземпляры класса
         this.teamName = name
         this.teamEmail = email
         this.capitan = capitan
         this.password = password
         this.members = members
+        this.description = description
+        this.banner = banner
+        this.link = link
     }
     
     getLog(){ //метод, возвращающий почту команды
@@ -36,10 +39,15 @@ class Team{ // класс команд, в котором есть констр�
 Team.instanes = []// массив с экземплярами объектов
 
 teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
-const habsyTeam = new Team("cringe", "hutornoyaa@gmail.com",  "Siderea", "Habsy2024", teamMembers ) // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-const habsyTeam2 = new Team("cringe","hutornoyaa2@gmail.com",  "Siderea2", "Habsy20242", teamMembers )
+const habsyTeam = new Team("TeamSpirit", "hutornoyaa@gmail.com",  "Siderea", "Habsy2024", teamMembers, "best of the best" , "/img/banners/ithub.png", "index3.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+const habsyTeam2 = new Team("Gladiators","hutornoyaa2@gmail.com",  "Siderea2", "Habsy20242", teamMembers, "can do everything","/img/banners/ithub.png", "index3.html")
 Team.instanes.push(habsyTeam) //добавляем команду в масив, хранящий экземпляры класса
 Team.instanes.push(habsyTeam2)
+Team.instanes.push(habsyTeam2)
+Team.instanes.push(habsyTeam2)
+Team.instanes.push(habsyTeam2)
+Team.instanes.push(habsyTeam2)
+
 
 //teamStorage.setItem("teamSigned in", JSON.stringify(Team.instanes)) 
 //преобразуем команды в json и добавляем в локальное хранилище
@@ -96,7 +104,6 @@ function isCurrentLocation(url){ //функция проверяющая сов�
 
 function render() { // рендер всех команд
     console.log( teamStorage.getItem("authorizedTeam")) // кто авторизовался
-    
     listElement.innerHTML = ''//делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
     if(Team.instanes.length === 0){// если команд нет -
         listElement.innerHTML = '<p>Нет элементов</p>'
@@ -123,11 +130,15 @@ else if(teamStorage.getItem('succesfulSign') === false){
 
 function getTeamTemplate(team){ //функция, использующаяся в render; Передается команда(team), из которой берутся хначения экземпляра класса Team
     return  `
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span class = "team">${team.teamEmail}</span>
-        <span class = "team">${team.capitan}</span>
-        <span class = "team">${team.members}</span>
-    </li>`
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="${team.banner}" alt="team banner">
+        <div class="card-body">
+            <h5 class="card-title">${team.teamName}</h5>
+            <p class="card-text">${team.description}</p>
+            <a href="${team.link}" class="btn btn-primary">Просмотр команды</a>
+        </div>
+    </div>
+`
 }
 
 function renderTeamName(){ //функция рендера названия команды, как в соц сетях показывает кто сейчас авторизован; работает по аналогии с рендером выше
