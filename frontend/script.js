@@ -10,10 +10,10 @@ for(let i = 0; i =0 ; i++){
         window.location.href = 'http://127.0.0.1:5500/index2.html';
     
     } 
-    else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
-    //если вторая (где юзеры) и неавторизован - переброс на авторизацию
-        window.location.href = 'index.html';
-    } 
+    // else if (isCurrentLocation("http://127.0.0.1:5500/index2.html") === true && (teamStorage.getItem('succesfulSign') === "false" || teamStorage.getItem('succesfulSign') === null)) {
+    // //если вторая (где юзеры) и неавторизован - переброс на авторизацию
+    //     window.location.href = 'index.html';
+    // } 
 }
 
 class Team{ // класс команд, в котором есть конструктор класса, через который создаются команды
@@ -47,12 +47,8 @@ Team.instanes.push(habsyTeam2)
 Team.instanes.push(habsyTeam2)
 Team.instanes.push(habsyTeam2)
 Team.instanes.push(habsyTeam2)
-
-
-//teamStorage.setItem("teamSigned in", JSON.stringify(Team.instanes)) 
-//преобразуем команды в json и добавляем в локальное хранилище
-//let teamow = teamStorage.getItem("teams")
-//console.log(teamow)
+Team.instanes.push(habsyTeam)
+Team.instanes.push(habsyTeam)
 
 let succesful = false//переменная успешной авторизации
 if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){//проверка, если текущая страница - страница авторизации
@@ -117,10 +113,9 @@ function render() { // рендер всех команд
 
 let isStoppedAuthoriz = false
 if (isCurrentLocation('http://127.0.0.1:5500/index2.html') === true ){
-    if(teamStorage.getItem('succesfulSign') === "true"){
         render()
         renderTeamName()
-    }
+
 }
 else if(teamStorage.getItem('succesfulSign') === false){
     console.log(teamStorage.getItem('succesfulSign'))
@@ -150,11 +145,38 @@ function renderTeamName(){ //функция рендера названия ко
 }
 
 function getTeamNameTemplate(){//шаблон вывода авторизованной сейчас команды ; Возвращается  html, который удет втавляться в рендер
-    return `
-    <p>
-    ${  
-        teamStorage.getItem("authorizedTeam")//берем из локального хранилища авторизованну команду
+    if(teamStorage.getItem("succesfulSign") == "true"){
+        return `
+          
+            <ul class="nav nav-pills">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">${teamStorage.getItem("authorizedTeam")}</a>
+                     <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Профиль</a></li>
+                    <li><a class="dropdown-item" href="#">Другое действие</a></li>
+                    <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item" id="unlog"> Выйти </button></li>
+                    </ul>
+                </li>
+            </ul>
+        `
     }
-    </p>
-    `
+    else{
+        return `
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="btn btn-primary" aria-current="page" href="index.html">Авторизоваться</a>
+            </li>
+        </ul>
+        `
+    }
+}
+if(isCurrentLocation("http://127.0.0.1:5500/index2.html") && teamStorage.getItem("succesfulSign")=="true"){
+    const unlogbut = document.getElementById('unlog')
+    unlogbut.onclick = function() {
+        teamStorage.setItem("succesfulSign", "false")
+        //window.location.href = 'index.html'
+        renderTeamName()
+    }
 }

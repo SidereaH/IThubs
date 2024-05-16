@@ -1,3 +1,34 @@
+h1, h2, h3, h4, h5, h6, p{
+  margin: 0px !important;
+}
+header{
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 2;
+
+}
+.head_content{
+  display: flex;
+  align-items: center;
+  height: 70px;
+  background-color: #C9CEEC;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.logo{
+  display: flex;
+  align-items: center;
+  min-width: 110px;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 130px;
+}
+.logo img{
+  width: 40px;
+}
+
 .authocont {
   background-color: rgba(228, 15, 15, 0) !important;
   display: flex;
@@ -44,4 +75,60 @@
 }
 .card{
   margin: 5px;
+}
+.carousel {
+  width: 70%;
+
+}
+.carouselDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel img{
+  width: 100%;
+  height: 100%;
+}
+.contain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.car-but img{
+  width: 20px !important;
+  height: 20px;
+}
+.car-but{
+  width: 100px !important;
+}
+.imgleft{
+  transform: scaleX(-1);
+}
+.btn-primary{
+  --bs-btn-bg: #9D5FEE !important;
+  --bs-btn-border-color: #9D5FEE !important;
+  --bs-btn-hover-bg: #aa6bfc  !important;
+  --bs-btn-hover-border-color: #aa6bfc  !important; 
+}
+.logo h3:active, /* активная/посещенная ссылка */
+.logo h3:hover,  /* при наведении */
+.logo  {
+  text-decoration: none !important;
+  color: #000;
+}
+h3{
+  text-decoration: none;
+}
+nav{
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav-link {
+  display: flex;
 }
