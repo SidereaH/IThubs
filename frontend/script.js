@@ -51,7 +51,7 @@ Team.instanes.push(habsyTeam)
 Team.instanes.push(habsyTeam)
 
 let succesful = false//переменная успешной авторизации
-if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true){//проверка, если текущая страница - страница авторизации
+if (isCurrentLocation('http://127.0.0.1:5500/index.html') === true ||isCurrentLocation('http://127.0.0.1:5500') === true || isCurrentLocation('http://192.168.0.106:5500/') === true || isCurrentLocation('http://192.168.0.106:5500/index.html') === true){//проверка, если текущая страница - страница авторизации
     console.log("first windows")
     loginBut.onclick = function() { //обработка клика по кнопке входа
         let email = document.getElementById('emailInput').value //получаем, что ввел пользователь в поле логина
@@ -112,7 +112,7 @@ function render() { // рендер всех команд
 
 
 let isStoppedAuthoriz = false
-if (isCurrentLocation('http://127.0.0.1:5500/index2.html') === true ){
+if (isCurrentLocation('http://127.0.0.1:5500/index2.html') === true || isCurrentLocation('http://192.168.0.106:5500/index2.html') === true){
         render()
         renderTeamName()
 
