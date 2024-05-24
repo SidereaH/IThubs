@@ -1,23 +1,28 @@
-h1, h2, h3, h4, h5, h6, p{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0px !important;
 }
-header{
+header {
   position: sticky;
   top: 0px;
   width: 100%;
   z-index: 2;
-
 }
-.head_content{
+.head_content {
   display: flex;
   align-items: center;
   height: 70px;
-  background-color: #C9CEEC;
+  background-color: #c9ceec;
   justify-content: space-between;
   padding-left: 30px;
   padding-right: 30px;
 }
-.logo{
+.logo {
   display: flex;
   align-items: center;
   min-width: 110px;
@@ -25,7 +30,7 @@ header{
   justify-content: space-between;
   max-width: 130px;
 }
-.logo img{
+.logo img {
   width: 40px;
 }
 
@@ -36,7 +41,6 @@ header{
   justify-content: center;
   height: 100vh;
   width: 100%;
-  
 }
 .loginmain {
   background-color: var(--bs-body-bg);
@@ -52,20 +56,19 @@ header{
   width: 100%;
   flex-direction: column;
   vertical-align: middle;
-  
 }
 .sign {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 25px !important;  
+  font-size: 25px !important;
   color: #000;
   margin-bottom: 20px !important;
 }
-.butlog{
+.butlog {
   font-size: 20px !important;
   font-weight: 500 !important;
 }
-.team{
+.team {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -73,19 +76,18 @@ header{
   justify-content: center;
   align-items: center;
 }
-.card{
+.card {
   margin: 5px;
 }
 .carousel {
   width: 70%;
-
 }
-.carouselDiv{
+.carouselDiv {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.carousel img{
+.carousel img {
   width: 100%;
   height: 100%;
 }
@@ -97,32 +99,32 @@ header{
   padding-left: 100px;
   padding-right: 100px;
 }
-.car-but img{
+.car-but img {
   width: 20px !important;
   height: 20px;
 }
-.car-but{
+.car-but {
   width: 100px !important;
 }
-.imgleft{
+.imgleft {
   transform: scaleX(-1);
 }
-.btn-primary{
-  --bs-btn-bg: #9D5FEE !important;
-  --bs-btn-border-color: #9D5FEE !important;
-  --bs-btn-hover-bg: #aa6bfc  !important;
-  --bs-btn-hover-border-color: #aa6bfc  !important; 
+.btn-primary {
+  --bs-btn-bg: #9d5fee !important;
+  --bs-btn-border-color: #9d5fee !important;
+  --bs-btn-hover-bg: #aa6bfc !important;
+  --bs-btn-hover-border-color: #aa6bfc !important;
 }
 .logo h3:active, /* активная/посещенная ссылка */
 .logo h3:hover,  /* при наведении */
-.logo  {
+.logo {
   text-decoration: none !important;
   color: #000;
 }
-h3{
+h3 {
   text-decoration: none;
 }
-nav{
+nav {
   max-width: 440px;
   width: 100%;
   display: flex;
@@ -131,4 +133,12 @@ nav{
 }
 nav-link {
   display: flex;
+}
+.form-control {
+  padding-left: 10px !important;
+}
+.search_menu {
+  position: relative;
+  top: 60px;
+  display: block !important;
 }
