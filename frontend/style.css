@@ -142,3 +142,7 @@ nav-link {
   top: 60px;
   display: block !important;
 }
+
+.hidden {
+  display: none !important;
+}

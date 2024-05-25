@@ -19,7 +19,7 @@ for (let i = 0; i = 0; i++) {
 }
 
 class Team { // класс команд, в котором есть конструктор класса, через который создаются команды
-    constructor(id ,name, email, capitan, password, members, description, banner, link) {
+    constructor(id, name, email, capitan, password, members, description, banner, link) {
         this.id = id //конструктор, с помощью которого создаются экземпляры класса
         this.teamName = name
         this.teamEmail = email
@@ -40,16 +40,15 @@ class Team { // класс команд, в котором есть констр
 }
 
 Team.instanes = []// массив с экземплярами объектов
-
 teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
-const habsyTeam = new Team("0","TeamSpirit", "hutornoyaa@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-const habsyTeam2 = new Team("1","Gladiators", "hutornoyaa2@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
-const habsyTeam3 = new Team("2","TeamSpirit", "hutornoyaa@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-const habsyTeam4 = new Team("3","Gladiators", "hutornoyaa2@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
-const habsyTeam5 = new Team("4","TeamSpirit", "hutornoyaa@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-const habsyTeam6 = new Team("5","Gladiators", "hutornoyaa2@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
-const habsyTeam7 = new Team("6","TeamSpirit", "hutornoyaa@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-const habsyTeam8 = new Team("7","Gladiators", "hutornoyaa2@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
+const habsyTeam = new Team("0", "TeamSpirit", "hutornoyaa@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+const habsyTeam2 = new Team("1", "Gladiators", "hutornoyaa2@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
+const habsyTeam3 = new Team("2", "BetBoom", "hutornoyaa3@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+const habsyTeam4 = new Team("3", "Хабсы", "hutornoyaa4@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
+const habsyTeam5 = new Team("4", "BetBoom", "hutornoyaa5@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+const habsyTeam6 = new Team("5", "ДГТУ", "hutornoyaa6@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
+const habsyTeam7 = new Team("6", "whatTheHell", "hutornoya7@gmail.com", "Siderea", "Habsy2024", teamMembers, "best of the best", "/img/banners/ithub.png", "index4.html") // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+const habsyTeam8 = new Team("7", "BetBoom", "hutornoyaa8@gmail.com", "Siderea2", "Habsy20242", teamMembers, "can do everything", "/img/banners/ithub.png", "index3.html")
 Team.instanes.push(habsyTeam) //добавляем команду в масив, хранящий экземпляры класса
 Team.instanes.push(habsyTeam2)
 Team.instanes.push(habsyTeam3)
@@ -105,20 +104,20 @@ function isCurrentLocation(url) { //функция проверяющая сов
     let currentUrl = window.location.href;
     return currentUrl === url;
 }
-function getTeamNameByTeamId(id){
-    for (const team in Team.instanes){
-        
-        if(Team.instanes[team].id === id){
-            console.log(Team.instanes[team].id === id , id, Team.instanes[team].id )
+function getTeamNameByTeamId(id) {
+    for (const team in Team.instanes) {
+
+        if (Team.instanes[team].id === id) {
+            console.log(Team.instanes[team].id === id, id, Team.instanes[team].id)
             return Team.instanes[team].teamName
         }
     }
 }
-function getlinkOfAuthorisedByTeamId(id){
-    for (const team in Team.instanes){
-        
-        if(Team.instanes[team].id === id){
-            console.log(Team.instanes[team].id === id , id, Team.instanes[team].id )
+function getlinkOfAuthorisedByTeamId(id) {
+    for (const team in Team.instanes) {
+
+        if (Team.instanes[team].id === id) {
+            console.log(Team.instanes[team].id === id, id, Team.instanes[team].id)
             return Team.instanes[team].link
         }
     }
@@ -201,7 +200,17 @@ function getTeamNameTemplate() {
     }
 }
 function renderSearchResults() {
-    searchBlock.innerHTML = ''
+    searchMenu.innerHTML = ''
+    if(Team.arr.length === 0){
+        searchMenu.innerHTML = `
+        <li class="nav-item">
+            <p class="ms-2">Нет резульатов</p>
+        </li>`
+    }
+    for(const team in Team.arr){
+            searchMenu.insertAdjacentHTML('beforeend', getTeamSearchTeamplate(Team.arr[team]))
+    }
+    
 }
 if ((isCurrentLocation("http://127.0.0.1:5500/index.html")) === false) {
     const unlogbut = document.getElementById('unlog')
@@ -210,21 +219,33 @@ if ((isCurrentLocation("http://127.0.0.1:5500/index.html")) === false) {
         //window.location.href = 'index.html'
         renderTeamName()
     }
-    searchInput.oninput = function() {
+    searchInput.oninput = function () {
+        searchMenu.classList.remove("hidden")
+        
         const arrofSearch = searchInTeams(searchInput.value)
-        if(arrofSearch != null){
-            
+        if(!searchInput.value){
+            searchMenu.innerHTML = ''
+            searchMenu.classList.add("hidden")
+        }
+        else if (arrofSearch != null) {
+            renderSearchResults(arrofSearch)
         }
     }
 }
 
-function searchInTeams(name){
-    let arr = [];
-    for (const team in Team.instanes){
-        if(Team.instanes[team].teamName.includes(name)){
-            arr.push(Team.instanes[team].teamName)
-            console.log(arr.toString(), arr)
-            return arr
+function getTeamSearchTeamplate(team){
+    return `
+        <li class="nav-item">
+            <a class="dropdown-item" href="${team.link}">${team.teamName}</a>
+        </li>
+    `
+}
+function searchInTeams(name) {
+    Team.arr = [];
+    for (const team in Team.instanes) {
+        if (Team.instanes[team].teamName.toLowerCase().includes(name)||Team.instanes[team].teamName.includes(name)) {
+            Team.arr.push(Team.instanes[team])
         }
     }
+    return Team.arr
 }
