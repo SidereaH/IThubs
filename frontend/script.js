@@ -31,17 +31,19 @@ class Team {
     members,
     description,
     banner,
-    link
+    link,
+    rate
   ) {
     this.id = id; //конструктор, с помощью которого создаются экземпляры класса
-    this.teamName = name;
-    this.teamEmail = email;
-    this.capitan = capitan;
-    this.password = password;
-    this.members = members;
-    this.description = description;
-    this.banner = banner;
-    this.link = link;
+    this.teamName = name
+    this.teamEmail = email
+    this.capitan = capitan
+    this.password = password
+    this.members = members
+    this.description = description
+    this.banner = banner
+    this.link = link
+    this.rate = rate
   }
 
   getLog() {
@@ -53,8 +55,8 @@ class Team {
   }
 }
 
-Team.instanes = []; // массив с экземплярами объектов
-teamMembers = ["Vera Kostenko", "Andrey Hutornoy"]; //пример массива с участниками
+Team.instanes = [] // массив с экземплярами объектов
+teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
 const habsyTeam = new Team(
   "0",
   "TeamSpirit",
@@ -63,8 +65,9 @@ const habsyTeam = new Team(
   "Habsy2024",
   teamMembers,
   "best of the best",
-  "/img/banners/ithub.png",
-  "index4.html"
+  "/img/banners/Team-Spirit.png",
+  "index4.html",
+  4
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
 const habsyTeam2 = new Team(
   "1",
@@ -74,8 +77,9 @@ const habsyTeam2 = new Team(
   "Habsy20242",
   teamMembers,
   "can do everything",
-  "/img/banners/ithub.png",
-  "index3.html"
+  "/img/banners/gg.png",
+  "index3.html",
+  2
 );
 const habsyTeam3 = new Team(
   "2",
@@ -85,8 +89,8 @@ const habsyTeam3 = new Team(
   "Habsy2024",
   teamMembers,
   "best of the best",
-  "/img/banners/ithub.png",
-  "index4.html"
+  "/img/banners/bb.png",
+  "index4.html",5
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
 const habsyTeam4 = new Team(
   "3",
@@ -97,7 +101,8 @@ const habsyTeam4 = new Team(
   teamMembers,
   "can do everything",
   "/img/banners/ithub.png",
-  "index3.html"
+  "index3.html",
+  5
 );
 const habsyTeam5 = new Team(
   "4",
@@ -107,8 +112,9 @@ const habsyTeam5 = new Team(
   "Habsy2024",
   teamMembers,
   "best of the best",
-  "/img/banners/ithub.png",
-  "index4.html"
+  "/img/banners/bb.png",
+  "index4.html",
+  3
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
 const habsyTeam6 = new Team(
   "5",
@@ -118,8 +124,9 @@ const habsyTeam6 = new Team(
   "Habsy20242",
   teamMembers,
   "can do everything",
-  "/img/banners/ithub.png",
-  "index3.html"
+  "/img/banners/dstu.jpg",
+  "index3.html",
+  4
 );
 const habsyTeam7 = new Team(
   "6",
@@ -130,7 +137,8 @@ const habsyTeam7 = new Team(
   teamMembers,
   "best of the best",
   "/img/banners/ithub.png",
-  "index4.html"
+  "index4.html",
+  3
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
 const habsyTeam8 = new Team(
   "7",
@@ -140,8 +148,9 @@ const habsyTeam8 = new Team(
   "Habsy20242",
   teamMembers,
   "can do everything",
-  "/img/banners/ithub.png",
-  "index3.html"
+  "/img/banners/bb.png",
+  "index3.html",
+  5
 );
 Team.instanes.push(habsyTeam); //добавляем команду в масив, хранящий экземпляры класса
 Team.instanes.push(habsyTeam2);
@@ -198,6 +207,8 @@ if (
   };
 }
 
+
+
 function isEmpty(str) {
   // функция проверки на пустую строку (может вызваться где угодно, с любой строкой, возвращает true false)
   return str === ""; //true если пустая строка (соответсвует '')
@@ -234,11 +245,13 @@ function render() {
   }
   for (let i = 0; i < Team.instanes.length; i++) {
     //перебор и вывод всех команд
-    listElement.insertAdjacentHTML(
-      "beforeend",
-      getTeamTemplate(Team.instanes[i])
-    ); //.innerAdjacentHTML (из курса джавы, работа с заметками)
-    //передаем где (beforeend) и что вставлять - getNoteTemplate;
+    if(Team.instanes[i].rate >=4){
+      listElement.insertAdjacentHTML(
+        "beforeend",
+        getTeamTemplate(Team.instanes[i])
+      ); //.innerAdjacentHTML (из курса джавы, работа с заметками)
+      //передаем где (beforeend) и что вставлять - getNoteTemplate;
+    }
   }
 }
 let isStoppedAuthoriz = false;
@@ -256,7 +269,10 @@ function getTeamTemplate(team) {
   //функция, использующаяся в render; Передается команда(team), из которой берутся хначения экземпляра класса Team
   return `
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="${team.banner}" alt="team banner">
+        <div class="card-cont">
+          <img class="card-img-top" src="${team.banner}" alt="team banner">
+        </div>
+        
         <div class="card-body">
             <h5 class="card-title">${team.teamName}</h5>
             <p class="card-text">${team.description}</p>
@@ -347,13 +363,13 @@ function getTeamSearchTeamplate(team) {
     `;
 }
 function searchInTeams(name) {
-  Team.arr = [];
+  Team.arr = []
   for (const team in Team.instanes) {
     if (
       Team.instanes[team].teamName.toLowerCase().includes(name) ||
       Team.instanes[team].teamName.includes(name)
     ) {
-      Team.arr.push(Team.instanes[team]);
+      Team.arr.push(Team.instanes[team])
     }
   }
   return Team.arr;
