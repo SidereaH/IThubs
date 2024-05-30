@@ -125,7 +125,7 @@ h3 {
   text-decoration: none;
 }
 nav {
-  max-width: 440px;
+  max-width: 650px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -146,11 +146,27 @@ nav-link {
 .hidden {
   display: none !important;
 }
-.card-cont{
+.card-cont {
   height: 286px;
   width: 100%;
 }
-.card-img-top{
+.card-img-top {
   height: 100%;
   object-fit: contain !important;
+}
+#search {
+  width: 250px;
+}
+nav {
+  width: 100% !important;
+  direction: flex !important;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn {
+  --bs-btn-active-bg: #7c2ee1 !important;
+  --bs-btn-active-border-color: #7c2ee1 !important;
+}
+.card-body a{
+  margin-top: 10px;
 }
