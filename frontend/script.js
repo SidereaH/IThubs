@@ -256,7 +256,9 @@ if (
         // перебор экземпляров класса Team (перебор команд)
         let emailTeam = Team.instanes[team].getLog(); //получение логина команды (сохраненного)
         let passwordTeam = Team.instanes[team].getPass(); //получение пароля команды (сохраненного)
+        
         if (email === emailTeam && passwordTeam === password) {
+          console.log("pizdecauthorized")
           //сравнение введенного логина и пароля  с полученными из экземпляра класса
           teamStorage.setItem("authorizedTeam", Team.instanes[team].id); //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
           teamStorage.setItem("succesfulSign", "true"); // сохраняем, авторизован ли человек
@@ -265,19 +267,25 @@ if (
           succesful = true;
         }
       }
-      for (const employee in Employee.companies) {
-        // перебор экземпляров класса Team (перебор команд)
-        let emailTeam = Employee.companies[employee].email //получение логина команды (сохраненного)
-        let passwordTeam = Employee.companies[employee].password//получение пароля команды (сохраненного)
-        if (email === emailTeam && passwordTeam === password) {
-          //сравнение введенного логина и пароля  с полученными из экземпляра класса
-          teamStorage.setItem("authorizedTeam", Employee.companies[employee].id); //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
-          teamStorage.setItem("succesfulSign", "true"); // сохраняем, авторизован ли человек
-          teamStorage.setItem("isEmployee", "true")
-          window.location.href = "index2.html"; //если да, переход дальше по страницам
-          succesful = true;
+      if(succesful != true){
+        for (const employee in Employee.companies) {
+          // перебор экземпляров класса Team (перебор команд)
+          let emailTeam = Employee.companies[employee].email //получение логина команды (сохраненного)
+          let passwordTeam = Employee.companies[employee].password//получение пароля команды (сохраненного)
+          if (email === emailTeam && passwordTeam === password) {
+            //сравнение введенного логина и пароля  с полученными из экземпляра класса
+            teamStorage.setItem("authorizedTeam", Employee.companies[employee].id); //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
+            teamStorage.setItem("succesfulSign", "true"); // сохраняем, авторизован ли человек
+            teamStorage.setItem("isEmployee", "true")
+            window.location.href = "index2.html"; //если да, переход дальше по страницам
+            succesful = true;
+          }
         }
       }
+      if(succesful != true){
+        alert("Неверный пароль")
+      }
+
       /*if(succesful === true){ //если правильно ввели пароль
 
                 alert("succesful")
@@ -386,9 +394,14 @@ let isStoppedAuthoriz = false;
 if (
   //isCurrentLocation("http://127.0.0.1:5500/index2.html") === true ||
   //isCurrentLocation("http://192.168.0.106:5500/index2.html") === true
-  isCurrentLocation("http://192.168.0.106:5500/index.html") === false ||
-  isCurrentLocation("http://127.0.0.1:5500/index.html") === false
+  //isCurrentLocation("http://192.168.0.106:5500/index.html") === false ||
+  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
+  isCurrentLocation("http://127.0.0.1:5500/") === false ) ||
+  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
+  isCurrentLocation("http://127.0.0.1:5500/") === false )
+  
 ) {
+  console.log("pizda")
   if(isCurrentLocation("http://127.0.0.1:5500/index6.html")){
     renderComp();
   }
@@ -421,7 +434,7 @@ function renderTeamName() {
   //функция рендера названия команды, как в соц сетях показывает кто сейчас авторизован; работает по аналогии с рендером выше
   authorizedName.innerHTML = ""; //authorizedName - элемент в html в который будет вставляться информация
   if (teamStorage.getItem("authorizedTeam") === null) {
-    authorizedName.innerHTML = "<p>Вы неавторизовались</p>";
+    //authorizedName.innerHTML = "<p>Вы неавторизовались</p>";
   }
   authorizedName.insertAdjacentHTML("beforeend", getTeamNameTemplate());
 }
@@ -485,10 +498,15 @@ function renderSearchResults() {
     );
   }
 }
-if (isCurrentLocation("http://127.0.0.1:5500/index.html") === false) {
+if (
+  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
+  isCurrentLocation("http://127.0.0.1:5500/") === false ) ||
+  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
+  isCurrentLocation("http://127.0.0.1:5500/") === false )) {
   const unlogbut = document.getElementById("unlog");
   unlogbut.onclick = function () {
-    teamStorage.setItem("succesfulSign", "false");
+    //teamStorage.setItem("succesfulSign", "false");
+    teamStorage.clear()
     //window.location.href = 'index.html'
     renderTeamName();
   };
