@@ -3,7 +3,6 @@ const listElement = document.getElementById("list");
 const authorizedName = document.getElementById("authorizedName");
 const loginBut = document.getElementById("loginBut"); //кнопка входа в аккаунт
 teamStorage = window.localStorage;
-console.log(teamStorage.getItem("succesfulSign"));
 const searchInput = document.getElementById("search");
 const searchMenu = document.getElementById("search_menu");
 for (let i = 0; (i = 0); i++) {
@@ -30,7 +29,8 @@ class Employee{
     banner,
     link,
     rate,
-    outsourcelink
+    outsourcelink,
+    vacancies
   ){
     this.id = id
     this.teamName = name
@@ -41,8 +41,42 @@ class Employee{
     this.link = link
     this.rate =  rate
     this.outsourcelink = outsourcelink
+    this.vacancies = vacancies
   }
 }
+class Vacancy {
+  constructor(
+    id,
+    name,
+    description,
+    keyskills,
+    city,
+    address,
+    canDistant,
+
+  ){
+    this.id = id
+    this.name = name
+    this.description = description
+    this.keyskills = keyskills
+    this.city= city
+    this.address = address
+    this.canDistant = canDistant
+  }
+}
+
+Vacancy.yandexVacancies = []
+const keyskillsDesign = ["HTML", "CSS", "JavaScript", "Next.js", "Vue.js", "Git"]
+const yandexWebDesign = new Vacancy(
+  0,
+  "WebDesigner",
+  "Ищем крутого веб дизайнера для наших проектов и так далее и так далее",
+  keyskillsDesign,
+  "Ростов-на-Дону",
+  "пл.Гагарина 1",
+  true
+)
+Vacancy.yandexVacancies.push(yandexWebDesign)
 const yandex = new Employee(
   i,
   "Yandex",
@@ -52,8 +86,11 @@ const yandex = new Employee(
   "/img/banners/Yandex_icon.svg.png",
   "index7.html",
   5,
-  "https://yandex.ru/jobs/"
+  "https://yandex.ru/jobs/",
+  Vacancy.yandexVacancies
 )
+
+
 class Team {
   // класс команд, в котором есть конструктор класса, через который создаются команды
   constructor(
@@ -67,7 +104,7 @@ class Team {
     description,
     banner,
     link,
-    rate,
+    rate
   ) {
     this.isEmployer = isEmployer
     this.id = id //конструктор, с помощью которого создаются экземпляры класса
@@ -82,6 +119,7 @@ class Team {
     this.banner = banner
     this.link = link
     this.rate = rate
+
   }
 
   getLog() {
@@ -92,6 +130,7 @@ class Team {
     return this.password; //метод, возвращающий пароль команды
   }
 }
+
 
 Team.instanes = [] // массив с экземплярами объектов
 Employee.companies = [] //массив с компаниями-работодателями
@@ -246,7 +285,6 @@ if (
   //проверка, если текущая страница - страница авторизации
   console.log("first windows");
   loginBut.onclick = function () {
-    console.log("ocho")
     //обработка клика по кнопке входа
     let email = document.getElementById("emailInput").value; //получаем, что ввел пользователь в поле логина
     let password = document.getElementById("passInput").value; // получаем, что ввел пользователь в поле пароля
@@ -258,7 +296,7 @@ if (
         let passwordTeam = Team.instanes[team].getPass(); //получение пароля команды (сохраненного)
         
         if (email === emailTeam && passwordTeam === password) {
-          console.log("pizdecauthorized")
+
           //сравнение введенного логина и пароля  с полученными из экземпляра класса
           teamStorage.setItem("authorizedTeam", Team.instanes[team].id); //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
           teamStorage.setItem("succesfulSign", "true"); // сохраняем, авторизован ли человек
@@ -283,7 +321,7 @@ if (
         }
       }
       if(succesful != true){
-        alert("Неверный пароль")
+        alert("Неверный логин или пароль")
       }
 
       /*if(succesful === true){ //если правильно ввели пароль
@@ -318,7 +356,7 @@ function getTeamNameByTeamId(ids) {
   let id  = Number(ids)
   for (const team in Team.instanes) {
     if (Team.instanes[team].id === id) {
-      console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
+      //console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
       return Team.instanes[team].teamName;
     }
   }
@@ -327,7 +365,7 @@ function getCompanyNameByCompanyId(ids) {
   let id  = Number(ids)
   for (const employee in Employee.companies) {
     if (Employee.companies[employee].id === id) {
-      console.log(Employee.companies[employee].id === id, id, Employee.companies[employee].id);
+      //console.log(Employee.companies[employee].id === id, id, Employee.companies[employee].id);
       return Employee.companies[employee].teamName;
     }
   }
@@ -335,7 +373,7 @@ function getCompanyNameByCompanyId(ids) {
 function getlinkOfAuthorisedByTeamId(id) {
   for (const team in Team.instanes) {
     if (Team.instanes[team].id === id) {
-      console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
+      //console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
       return Team.instanes[team].link;
     }
   }
@@ -344,13 +382,13 @@ function getlinkOfAuthorisedByEmployeeId(ids) {
   let id = Number(ids)
   for (const employee in Employee.companies) {
     if (Employee.companies[employee].id === id) {
-      console.log(Employee.companies[employee].link);
+      //console.log(Employee.companies[employee].link);
       return Employee.companies[employee].link;
     }
   }
 }
 function renderComp(){
-  console.log(Employee.companies)
+  //console.log(Employee.companies)
   listElement.innerHTML = ""; //делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
   if (Employee.companies.length === 0) {
     // если команд нет -
@@ -372,7 +410,7 @@ function renderComp(){
 
 function render() {
   // рендер всех команд
-  console.log(teamStorage.getItem("authorizedTeam")); // кто авторизовался
+  //console.log(teamStorage.getItem("authorizedTeam")); // кто авторизовался
   listElement.innerHTML = ""; //делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
   if (Team.instanes.length === 0) {
     // если команд нет -
@@ -401,7 +439,6 @@ if (
   isCurrentLocation("http://127.0.0.1:5500/") === false )
   
 ) {
-  console.log("pizda")
   if(isCurrentLocation("http://127.0.0.1:5500/index6.html")){
     renderComp();
   }
@@ -411,7 +448,7 @@ if (
 
   renderTeamName();
 } else if (teamStorage.getItem("succesfulSign") === false) {
-  console.log(teamStorage.getItem("succesfulSign"));
+  //console.log(teamStorage.getItem("succesfulSign"));
   window.location.href = "http://127.0.0.1:5500/index2.html";
 }
 function getTeamTemplate(team) {
@@ -565,3 +602,4 @@ function getShortestString(begin, finish, string){
     return newStr + "..."
   }
 }
+
