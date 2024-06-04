@@ -19,9 +19,10 @@ for (let i = 0; (i = 0); i++) {
   // }
 }
 let i = 0
-class Employee{
+class Employer{
   constructor(
     id,
+    isEmployer,
     name,
     email,
     password,
@@ -33,6 +34,7 @@ class Employee{
     vacancies
   ){
     this.id = id
+    this.isEmployer = isEmployer
     this.teamName = name
     this.email = email
     this.password = password
@@ -77,8 +79,9 @@ const yandexWebDesign = new Vacancy(
   true
 )
 Vacancy.yandexVacancies.push(yandexWebDesign)
-const yandex = new Employee(
+const yandex = new Employer(
   i,
+  true,
   "Yandex",
   "yandex@yandex.ru",
   "12345",
@@ -133,7 +136,7 @@ class Team {
 
 
 Team.instanes = [] // массив с экземплярами объектов
-Employee.companies = [] //массив с компаниями-работодателями
+Employer.companies = [] //массив с компаниями-работодателями
 
 teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
 
@@ -272,7 +275,7 @@ Team.instanes.push(habsyTeam5);
 Team.instanes.push(habsyTeam6);
 Team.instanes.push(habsyTeam7);
 Team.instanes.push(habsyTeam8);
-Employee.companies.push(yandex);
+Employer.companies.push(yandex);
 
 
 let succesful = false; //переменная успешной авторизации
@@ -306,13 +309,13 @@ if (
         }
       }
       if(succesful != true){
-        for (const employee in Employee.companies) {
+        for (const employee in Employer.companies) {
           // перебор экземпляров класса Team (перебор команд)
-          let emailTeam = Employee.companies[employee].email //получение логина команды (сохраненного)
-          let passwordTeam = Employee.companies[employee].password//получение пароля команды (сохраненного)
+          let emailTeam = Employer.companies[employee].email //получение логина команды (сохраненного)
+          let passwordTeam = Employer.companies[employee].password//получение пароля команды (сохраненного)
           if (email === emailTeam && passwordTeam === password) {
             //сравнение введенного логина и пароля  с полученными из экземпляра класса
-            teamStorage.setItem("authorizedTeam", Employee.companies[employee].id); //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
+            teamStorage.setItem("authorizedTeam", Employer.companies[employee].id); //если все совпало, то добавляем этот экземпляр, с которым сошелся логин и пароль, в локальное хранилище, тем самым сохраняя, кто авторизовался
             teamStorage.setItem("succesfulSign", "true"); // сохраняем, авторизован ли человек
             teamStorage.setItem("isEmployee", "true")
             window.location.href = "index2.html"; //если да, переход дальше по страницам
@@ -363,10 +366,10 @@ function getTeamNameByTeamId(ids) {
 }
 function getCompanyNameByCompanyId(ids) {
   let id  = Number(ids)
-  for (const employee in Employee.companies) {
-    if (Employee.companies[employee].id === id) {
+  for (const employee in Employer.companies) {
+    if (Employer.companies[employee].id === id) {
       //console.log(Employee.companies[employee].id === id, id, Employee.companies[employee].id);
-      return Employee.companies[employee].teamName;
+      return Employer.companies[employee].teamName;
     }
   }
 }
@@ -380,26 +383,26 @@ function getlinkOfAuthorisedByTeamId(id) {
 }
 function getlinkOfAuthorisedByEmployeeId(ids) {
   let id = Number(ids)
-  for (const employee in Employee.companies) {
-    if (Employee.companies[employee].id === id) {
+  for (const employee in Employer.companies) {
+    if (Employer.companies[employee].id === id) {
       //console.log(Employee.companies[employee].link);
-      return Employee.companies[employee].link;
+      return Employer.companies[employee].link;
     }
   }
 }
 function renderComp(){
   //console.log(Employee.companies)
   listElement.innerHTML = ""; //делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
-  if (Employee.companies.length === 0) {
+  if (Employer.companies.length === 0) {
     // если команд нет -
     listElement.innerHTML = "<p>Нет элементов</p>";
   }
-  for (let i = 0; i < Employee.companies.length; i++) {
+  for (let i = 0; i < Employer.companies.length; i++) {
     //перебор и вывод всех команд
-    if(Employee.companies[i].rate >=4){
+    if(Employer.companies[i].rate >=4){
       listElement.insertAdjacentHTML(
         "beforeend",
-        getTeamTemplate(Employee.companies[i])
+        getTeamTemplate(Employer.companies[i])
         
       ); //.innerAdjacentHTML (из курса js, работа с заметками)
       
@@ -525,7 +528,7 @@ function renderSearchResults() {
   if (Team.arr.length === 0) {
     searchMenu.innerHTML = `
         <li class="nav-item">
-            <p class="ms-2">Нет резульатов</p>
+            <p class="ms-2">Нет результатов</p>
         </li>`;
   }
   for (const team in Team.arr) {
@@ -564,21 +567,21 @@ if (
 function getTeamSearchTeamplate(team) {
   return `
         <li class="nav-item">
-            <a class="dropdown-item" href="${team.link}">${team.teamName}</a>
+            <a class="dropdown-item searchitem" href="${team.link}"><p>${team.teamName}</p><img class="searchicon" src="${(team.isEmployer === true) ? "/img/briefcase.png":"/img/management.png"}"></a>
         </li>
     `;
 }
 function searchInEmplyee(name){
-  Employee.arr= []
-  for (const team in Employee.companies) {
+  Employer.arr= []
+  for (const team in Employer.companies) {
     if (
-      Employee.companies[team].teamName.toLowerCase().includes(name) ||
-      Employee.companies[team].teamName.includes(name)
+      Employer.companies[team].teamName.toLowerCase().includes(name) ||
+      Employer.companies[team].teamName.includes(name)
     ) {
-      Team.arr.push(Employee.companies[team])
+      Team.arr.push(Employer.companies[team])
     }
   }
-  return Employee.arr;
+  return Employer.arr;
 }
 function searchInTeams(name) {
   Team.arr = []
@@ -602,4 +605,3 @@ function getShortestString(begin, finish, string){
     return newStr + "..."
   }
 }
-
