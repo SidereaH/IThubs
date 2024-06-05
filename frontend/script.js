@@ -5,6 +5,20 @@ const loginBut = document.getElementById("loginBut"); //кнопка входа 
 teamStorage = window.localStorage;
 const searchInput = document.getElementById("search");
 const searchMenu = document.getElementById("search_menu");
+
+const addMemberButton = document.getElementById("addmember");
+const secondnameInput = document.getElementById("secondnameInput");
+const firstnameInput = document.getElementById("firstnameInput");
+const middlenameInput = document.getElementById('middlenameInput');
+const githubInput = document.getElementById('githubInput')
+const phoneInput = document.getElementById('phoneInput')
+const emailMemberInput = document.getElementById('emailMemberInput')
+const telegramInput = document.getElementById('telegramInput')
+const capitanSwitch = document.getElementById('flexSwitchCheckDefault')
+
+const bodyMembers = document.getElementById('bodyMembers')
+const watchMembers = document.getElementById('watchMembers')
+
 for (let i = 0; (i = 0); i++) {
   if (
     isCurrentLocation("http://127.0.0.1:5500/index.html") === true &&
@@ -134,6 +148,78 @@ class Team {
   }
 }
 
+class Member{
+  constructor(
+    memberID,
+    capitan,
+    secondname,
+    firstname,
+    middleName,
+    github,
+    phone,
+    email,
+    telegram
+  ) {
+    this.memberID = memberID
+    this.capitan = capitan
+    this.secondname = secondname
+    this.firstname = firstname
+    this.middleName = middleName
+    this.github = github
+    this.phone = phone
+    this.email = email
+    this.telegram = telegram
+  }
+}
+
+Member.members = []
+
+const member = new Member(
+  1,
+  true,
+  "Ivanov",
+  "Ivan",
+  "Ivanovich",
+  "/git/ivn",
+  "+919291112",
+  "@ivanivan"
+)
+
+Member.members.push(member)
+
+addMemberButton.onclick = function(){
+  if(isEmpty(firstnameInput.value) === false && isEmpty(secondnameInput.value) === false && (isEmpty(phoneInput.value) === false || isEmpty(githubInput.value) === false|| isEmpty(emailMemberInput.value) === false))
+  {
+    const lengthMembers = Member.members.length+1
+
+    let isCapitan
+
+    if(capitanSwitch.checked === true){
+      isCapitan = true
+    }
+    else{
+      isCapitan = false
+    }
+
+    alert('Участник добавлен')
+
+    const newMember = new Member(
+      lengthMembers,
+      isCapitan,
+      secondnameInput.value,
+      firstnameInput.value,
+      middlenameInput.value,
+      githubInput.value,
+      phoneInput.value,
+      emailMemberInput.value,
+      telegramInput.value
+    )
+    Member.members.push(newMember)
+  }
+  else {
+    alert('Введите оставшиеся поля')
+  } 
+}
 
 Team.instanes = [] // массив с экземплярами объектов
 Employer.companies = [] //массив с компаниями-работодателями
@@ -415,6 +501,7 @@ function render() {
   // рендер всех команд
   //console.log(teamStorage.getItem("authorizedTeam")); // кто авторизовался
   listElement.innerHTML = ""; //делаем пустое поле в элементе, в котором будем выводить (рендерить) команды
+
   if (Team.instanes.length === 0) {
     // если команд нет -
     listElement.innerHTML = "<p>Нет элементов</p>";
@@ -431,6 +518,8 @@ function render() {
     }
   }
 }
+
+
 let isStoppedAuthoriz = false;
 if (
   //isCurrentLocation("http://127.0.0.1:5500/index2.html") === true ||
@@ -440,16 +529,18 @@ if (
   isCurrentLocation("http://127.0.0.1:5500/") === false ) ||
   (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
   isCurrentLocation("http://127.0.0.1:5500/") === false )
+
+  ||(isCurrentLocation("http://127.0.0.1:5500/index8.html") === false)
   
 ) {
   if(isCurrentLocation("http://127.0.0.1:5500/index6.html")){
     renderComp();
   }
-  else{
-    render();
-  }
+//   else{
+//    render();
+//  }
 
-  renderTeamName();
+  // renderTeamName();
 } else if (teamStorage.getItem("succesfulSign") === false) {
   //console.log(teamStorage.getItem("succesfulSign"));
   window.location.href = "http://127.0.0.1:5500/index2.html";
@@ -467,9 +558,71 @@ function getTeamTemplate(team) {
             <p class="card-text">${getShortestString(0,70,team.description)}</p>
             <a href="${team.link}" class="btn btn-primary">Просмотр команды</a>
         </div>
-    </div>
-`;
+    </div>`;
 }
+
+
+
+function renderMembers(){
+
+  bodyMembers.innerHTML = ""
+
+  if(Member.members.length === 0){
+  bodyMembers.innerHTML = "<p>Нет элементов</p>"
+  }
+  else {
+    for (let i = 0; i < Member.members.length; i++){
+      bodyMembers.insertAdjacentHTML(
+        "beforeend",
+        getMemberTemplate(Member.members[i]))
+    }
+  }
+  console.log('леле')
+  
+}
+renderMembers()
+
+watchMembers.onclick = function(){
+  renderMembers()
+}
+
+
+function getMemberTemplate(member) {
+  //функция, использующаяся в render; Передается команда(member), из которой берутся значения экземпляра класса member
+
+  let capitanState
+  if(member.capitan === true){
+    capitanState = `<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
+  <label class="form-check-label" for="flexSwitchCheckDisabled">Капитан</label>
+  </div>`
+  }
+
+  else{
+    capitanState = `<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
+    <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
+  </div>`
+}
+
+  return `
+    <div class="card" style="width: 18rem;">    
+        <div class="card-body">
+            <p class="card-text">${member.secondname}</p>
+            <p class="card-text">${member.firstname}</p>
+            <p class="card-text">${member.middleName}</p>
+
+            ${capitanState}
+
+            <p class="card-text">${member.github}</p>
+            <p class="card-text">${member.phone}</p>
+            <p class="card-text">${member.email}</p>
+            <p class="card-text">${member.telegram}</p>
+        </div>
+    </div>`;
+}
+
+
 function renderTeamName() {
   //функция рендера названия команды, как в соц сетях показывает кто сейчас авторизован; работает по аналогии с рендером выше
   authorizedName.innerHTML = ""; //authorizedName - элемент в html в который будет вставляться информация
