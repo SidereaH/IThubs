@@ -18,6 +18,7 @@ const capitanSwitch = document.getElementById('flexSwitchCheckDefault')
 
 const bodyMembers = document.getElementById('bodyMembers')
 const watchMembers = document.getElementById('watchMembers')
+const delMemberBut = document.getElementById("delMemberBut")
 
 for (let i = 0; (i = 0); i++) {
   if (
@@ -177,16 +178,28 @@ Member.members = []
 const member = new Member(
   1,
   true,
-  "Ivanov",
-  "Ivan",
-  "Ivanovich",
-  "/git/ivn",
-  "+919291112",
-  "@ivanivan"
+  "Хуторной",
+  "Андрей",
+  "Андреевич",
+  "https://github.com/SidereaH",
+  "+79882578790",
+  "hutornoyaa@gmail.com",
+  "@Siderean"
 )
 
 Member.members.push(member)
 
+function delMember(memberid){
+  console.log("udalen", memberid)
+  Member.members.splice(memberid-1,1)
+  renderMembers()
+}
+function updateInform(memberid){
+
+}
+function changeCapitanState(memberid){
+  Member.members[memberid].capitanState = !Member.members[memberid].capitanState
+}
 addMemberButton.onclick = function(){
   if(isEmpty(firstnameInput.value) === false && isEmpty(secondnameInput.value) === false && (isEmpty(phoneInput.value) === false || isEmpty(githubInput.value) === false|| isEmpty(emailMemberInput.value) === false))
   {
@@ -215,9 +228,10 @@ addMemberButton.onclick = function(){
       telegramInput.value
     )
     Member.members.push(newMember)
+    renderMembers()
   }
   else {
-    alert('Введите оставшиеся поля')
+    //alert('Введите оставшиеся поля')
   } 
 }
 
@@ -526,21 +540,19 @@ if (
   //isCurrentLocation("http://192.168.0.106:5500/index2.html") === true
   //isCurrentLocation("http://192.168.0.106:5500/index.html") === false ||
   (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
-  isCurrentLocation("http://127.0.0.1:5500/") === false ) ||
-  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
-  isCurrentLocation("http://127.0.0.1:5500/") === false )
-
-  ||(isCurrentLocation("http://127.0.0.1:5500/index8.html") === false)
+  isCurrentLocation("http://127.0.0.1:5500/") === false ) &&
+  (isCurrentLocation("http://127.0.0.1:5500/index8.html") === false)
   
 ) {
+
   if(isCurrentLocation("http://127.0.0.1:5500/index6.html")){
     renderComp();
   }
-//   else{
-//    render();
-//  }
+   else{
+    render();
+  }
 
-  // renderTeamName();
+   renderTeamName();
 } else if (teamStorage.getItem("succesfulSign") === false) {
   //console.log(teamStorage.getItem("succesfulSign"));
   window.location.href = "http://127.0.0.1:5500/index2.html";
@@ -568,7 +580,7 @@ function renderMembers(){
   bodyMembers.innerHTML = ""
 
   if(Member.members.length === 0){
-  bodyMembers.innerHTML = "<p>Нет элементов</p>"
+    bodyMembers.innerHTML = "<p>Команда пуста</p>"
   }
   else {
     for (let i = 0; i < Member.members.length; i++){
@@ -593,32 +605,185 @@ function getMemberTemplate(member) {
   let capitanState
   if(member.capitan === true){
     capitanState = `<div class="form-check form-switch">
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
-  <label class="form-check-label" for="flexSwitchCheckDisabled">Капитан</label>
+    <input class="form-check-input" type="checkbox" id="checkCapitan${member.id}" checked >
+    <label class="form-check-label" for="checkCapitan${member.id}"></label>
   </div>`
+
   }
 
   else{
     capitanState = `<div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
-    <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
-  </div>`
+    <input class="form-check-input" type="checkbox" id="checkCapitan${member.id}" >
+    <label class="form-check-label" for="checkCapitan${member.id}"></label>
+    </div>`
 }
-
+  let mob
+  if(isEmpty(member.phone)){
+    mob = "-"
+  }
+  else{
+    mob = member.phone
+  }
+  let tg
+  if(isEmpty(member.telegram)){
+    tg = "-"
+  }
+  else{
+    tg = member.telegram
+  }
+  let git
+  if(isEmpty(member.github)){
+    git = "-"
+  }
+  else{
+    git = member.github
+  }
+  let mail
+  if(isEmpty(member.github)){
+    mail = "-"
+  }
+  else{
+    mail = member.email
+  }
+  
+  
+  console.log(mob)
   return `
-    <div class="card" style="width: 18rem;">    
+    <div class="card membercard">    
         <div class="card-body">
-            <p class="card-text">${member.secondname}</p>
-            <p class="card-text">${member.firstname}</p>
-            <p class="card-text">${member.middleName}</p>
-
-            ${capitanState}
-
-            <p class="card-text">${member.github}</p>
-            <p class="card-text">${member.phone}</p>
-            <p class="card-text">${member.email}</p>
-            <p class="card-text">${member.telegram}</p>
+        
+        <ul class="list-group list-group-horizontal ">
+  <li class="list-group-item list-group-item-head allli startleftli">Фамилия</li>
+  <li class="list-group-item list-group-item-value allli startrightli">
+  
+              <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${member.secondname}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="secNameMemberInput${member.memberID}"
+              />
+            </div>
+            </li>
+</ul>
+        <ul class="list-group list-group-horizontal ">
+  <li class="list-group-item list-group-item-head allli ">Имя</li>
+  <li class="list-group-item list-group-item-value allli">
+    <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${member.firstname}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="firstNameMemberInput${member.memberID}"
+              />
+            </div>
+  </li>
+</ul>
+        <ul class="list-group list-group-horizontal ">
+  <li class="list-group-item list-group-item-head allli ">Отчество</li>
+  <li class="list-group-item list-group-item-value allli ">
+    <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${member.middleName}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="midNameMemberInput${member.memberID}"
+              />
+            </div>
+  </li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >Капитан</li>
+  <li class="list-group-item list-group-item-value allli">${capitanState}
+  </li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >GitHub</li>
+  <li class="list-group-item list-group-item-value allli">
+      <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${git}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="emailMemberInput"
+              />
+            </div></li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >Телефон</li>
+  <li class="list-group-item list-group-item-value allli">
+  <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${mob}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="emailMemberInput"
+              />
+            </div></li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >Почта</li>
+  <li class="list-group-item list-group-item-value allli">
+<div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${mail}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="emailMemberInput"
+              />
+            </div>
+            </li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli endleftli" >Телеграм</li>
+  <li class="list-group-item list-group-item-value allli endrightli">    <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${tg}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="emailMemberInput"
+              />
+            </div></li>
+</ul>
         </div>
+        <button
+          type="button"
+          class="btn btn-primary mb-3 butdel"
+          id="delMemberBut"
+          onclick="updateMember(${member.id});"
+          
+        >
+          Сохранить изменения
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary mb-3 butdel"
+          id="delMemberBut"
+          onclick="delMember(${member.memberID});"
+        >
+          Удалить участника
+        </button>
     </div>`;
 }
 
@@ -693,9 +858,8 @@ function renderSearchResults() {
 }
 if (
   (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
-  isCurrentLocation("http://127.0.0.1:5500/") === false ) ||
-  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
-  isCurrentLocation("http://127.0.0.1:5500/") === false )) {
+  isCurrentLocation("http://127.0.0.1:5500/") === false )  &&
+  isCurrentLocation("http://127.0.0.1:5500/index8.html")===false)  {
   const unlogbut = document.getElementById("unlog");
   unlogbut.onclick = function () {
     //teamStorage.setItem("succesfulSign", "false");
@@ -724,6 +888,7 @@ function getTeamSearchTeamplate(team) {
         </li>
     `;
 }
+
 function searchInEmplyee(name){
   Employer.arr= []
   for (const team in Employer.companies) {
@@ -748,7 +913,6 @@ function searchInTeams(name) {
   }
   return Team.arr;
 }
-
 function getShortestString(begin, finish, string){
   let newStr = string.slice(begin,finish)
   if (newStr.length >= string.length){

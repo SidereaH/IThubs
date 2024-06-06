@@ -178,3 +178,55 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
+.list-group-item-head{
+  width: 115px !important;
+}
+.list-group-item-value{
+  width: 100%;
+}
+.list-group{
+  width: 100% !important;
+}
+
+.membercard li{
+  box-sizing: content-box;
+  display: flex;
+}
+
+.membercard{
+  width: 370px;
+}
+
+.allli {
+   border-bottom-left-radius: 0 !important; 
+   border-bottom-right-radius: 0 !important;
+   border-top-right-radius: 0 !important;
+   border-top-left-radius: 0 !important;
+}
+.startleftli {
+  border-top-left-radius: inherit !important;
+}
+.startrightli {
+  border-top-right-radius: inherit !important;
+}
+.endleftli{
+  border-bottom-left-radius: inherit !important; 
+}
+.endrightli{
+  border-bottom-right-radius: inherit !important; 
+}
+.butdel {
+  width: 50%;
+  margin-left: 25%;
+}
+#bodyMembers{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.modal-dialog-w100{
+  max-width: 100% !important;
+  margin-left: 200px !important;
+  margin-right: 200px !important;
+}
