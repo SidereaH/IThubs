@@ -20,6 +20,13 @@ const bodyMembers = document.getElementById('bodyMembers')
 const watchMembers = document.getElementById('watchMembers')
 const delMemberBut = document.getElementById("delMemberBut")
 
+const regisrtationBut = document.getElementById('regisrtationBut')
+
+const comandNameInput = document.getElementById('comandNameInput')
+const passInput = document.getElementById('passInput')
+const emailInput = document.getElementById('emailInput')
+
+
 for (let i = 0; (i = 0); i++) {
   if (
     isCurrentLocation("http://127.0.0.1:5500/index.html") === true &&
@@ -235,6 +242,69 @@ addMemberButton.onclick = function(){
   } 
 }
 
+
+regisrtationBut.onclick = function(){
+
+  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (isEmpty(comandNameInput.value) === false && isEmpty(emailInput.value) === false && isEmpty(passInput.value) === false) {
+
+    if(emailPattern.test(emailInput.value)){
+
+      let isComandName = checkComandName(comandNameInput.value)
+      if(isComandName === false){
+  
+        const comanda = new Team(
+          false,
+          Team.instanes.length + 1,
+          comandNameInput.value,
+          emailInput.value,
+          passInput.value,
+          searchCapitan(),
+          Member.members,
+          '',
+          '/img/banners/dstu.jpg',
+          'index9',
+          0
+        )
+        Team.instanes.push(comanda)
+        window.location.href = 'index.html';
+      }
+      else{
+        alert('Команда с таким названием уже существует')
+      }
+    }
+    else{
+      alert('Некорректный email-адрес')
+    }
+  }
+
+  else{
+    alert("Заполните пустые строки");
+  }
+
+}
+
+function checkComandName(nameComand){
+
+  for(const comanda in Team.instanes){
+    if(comanda.teamName === nameComand){
+      return true
+    }
+  }
+  return false
+  
+}
+
+
+function searchCapitan(){
+  for (const member in Member.members){
+    if(member.capitan === true){
+      return member
+    }
+
+  }
+}
+
 Team.instanes = [] // массив с экземплярами объектов
 Employer.companies = [] //массив с компаниями-работодателями
 
@@ -242,7 +312,7 @@ teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива
 
 const habsyTeam = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "TeamSpirit",
   "hutornoyaa@gmail.com",
   "Habsy2024",
@@ -256,7 +326,7 @@ const habsyTeam = new Team(
 i+=1
 const habsyTeam9 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "1488",
   "hutornoyaa@gmail.com",
   "Habsy2024",
@@ -270,7 +340,7 @@ const habsyTeam9 = new Team(
 i+=1
 const habsyTeam2 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "Gladiators",
   "hutornoyaa2@gmail.com",
   "Habsy20242",
@@ -284,7 +354,7 @@ const habsyTeam2 = new Team(
 i+=1
 const habsyTeam3 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "BetBoom",
   "hutornoyaa3@gmail.com",
   "Habsy2024",
@@ -297,7 +367,7 @@ const habsyTeam3 = new Team(
 i+=1
 const habsyTeam4 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "Хабсы",
   "hutornoyaa4@gmail.com",
   "Siderea2",
@@ -310,7 +380,7 @@ const habsyTeam4 = new Team(
 i+=1
 const habsyTeam5 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "BetBoom",
   "hutornoyaa5@gmail.com",
   "Habsy2024",
@@ -324,7 +394,7 @@ const habsyTeam5 = new Team(
 i+=1
 const habsyTeam6 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "ДГТУ",
   "hutornoyaa6@gmail.com",
   "Habsy20242",
@@ -339,7 +409,7 @@ const habsyTeam6 = new Team(
 i+=1
 const habsyTeam7 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "whatTheHell",
   "hutornoya7@gmail.com",
   "Habsy2024",
@@ -354,7 +424,7 @@ const habsyTeam7 = new Team(
 i+=1
 const habsyTeam8 = new Team(
   false,
-  i,
+  Team.instanes.length + 1,
   "BetBoom",
   "hutornoyaa8@gmail.com",
   "Habsy20242",
@@ -599,22 +669,60 @@ watchMembers.onclick = function(){
 }
 
 
+function updateMember(memberID){
+  const secNameMemberInput = document.getElementById(`secNameMemberInput${memberID}`)
+  const firstNameMemberInput = document.getElementById(`firstNameMemberInput${memberID}`)
+  const midNameMemberInput = document.getElementById(`midNameMemberInput${memberID}`)
+  const gitMemberInput = document.getElementById(`gitMemberInput${memberID}`)
+  const phoneMemberInput = document.getElementById(`phoneMemberInput${memberID}`)
+  const emailMemberInput = document.getElementById(`emailMemberInput${memberID}`)
+  const tgMemberInput = document.getElementById(`tgMemberInput${memberID}`)
+
+  if (isEmpty(secNameMemberInput.value) === false){
+    Member.members[memberID-1].secondname = secNameMemberInput.value
+  }
+  if (isEmpty(firstNameMemberInput.value) === false){
+    Member.members[memberID-1].firstname = firstNameMemberInput.value
+  }
+  if (isEmpty(midNameMemberInput.value) === false){
+    Member.members[memberID-1].middleName = midNameMemberInput.value
+  }
+  if (isEmpty(gitMemberInput.value) === false){
+    Member.members[memberID-1].github = gitMemberInput.value
+  }
+  if (isEmpty(phoneMemberInput.value) === false){
+    Member.members[memberID-1].phone = phoneMemberInput.value
+  }
+  if (isEmpty(emailMemberInput.value) === false){
+    Member.members[memberID-1].email = emailMemberInput.value
+  }
+  if (isEmpty(tgMemberInput.value) === false){
+    Member.members[memberID-1].telegram = tgMemberInput.value
+  }
+
+  const checkCapitan = document.getElementById(`checkCapitan${memberID}`)
+  Member.members[memberID-1].capitan = checkCapitan.checked
+
+  renderMembers()
+}
+
+
 function getMemberTemplate(member) {
   //функция, использующаяся в render; Передается команда(member), из которой берутся значения экземпляра класса member
 
   let capitanState
   if(member.capitan === true){
     capitanState = `<div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="checkCapitan${member.id}" checked >
-    <label class="form-check-label" for="checkCapitan${member.id}"></label>
+    <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" checked >
+    <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
   </div>`
 
   }
 
   else{
     capitanState = `<div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="checkCapitan${member.id}" >
-    <label class="form-check-label" for="checkCapitan${member.id}"></label>
+    <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" >
+    <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
     </div>`
 }
   let mob
@@ -645,8 +753,9 @@ function getMemberTemplate(member) {
   else{
     mail = member.email
   }
-  
-  
+
+
+
   console.log(mob)
   return `
     <div class="card membercard">    
@@ -717,7 +826,7 @@ function getMemberTemplate(member) {
                 placeholder="${git}"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                id="emailMemberInput"
+                id="gitMemberInput${member.memberID}"
               />
             </div></li>
 </ul>
@@ -732,7 +841,7 @@ function getMemberTemplate(member) {
                 placeholder="${mob}"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                id="emailMemberInput"
+                id="phoneMemberInput${member.memberID}"
               />
             </div></li>
 </ul>
@@ -747,7 +856,7 @@ function getMemberTemplate(member) {
                 placeholder="${mail}"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                id="emailMemberInput"
+                id="emailMemberInput${member.memberID}"
               />
             </div>
             </li>
@@ -762,7 +871,7 @@ function getMemberTemplate(member) {
                 placeholder="${tg}"
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                id="emailMemberInput"
+                id="tgMemberInput${member.memberID}"
               />
             </div></li>
 </ul>
@@ -771,8 +880,7 @@ function getMemberTemplate(member) {
           type="button"
           class="btn btn-primary mb-3 butdel"
           id="delMemberBut"
-          onclick="updateMember(${member.id});"
-          
+          onclick="updateMember(${member.memberID});"
         >
           Сохранить изменения
         </button>
