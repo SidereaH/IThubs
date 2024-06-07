@@ -230,3 +230,11 @@ nav {
   margin-left: 200px !important;
   margin-right: 200px !important;
 }
+.btn-outline-primary {
+  --bs-btn-color: #9d5fee !important;
+  --bs-btn-border-color: #9d5fee !important;
+}
+.btn:hover {
+  background-color: #9d5fee !important;
+  border-color: #9d5fee !important
+}
