@@ -5,7 +5,6 @@ const loginBut = document.getElementById("loginBut"); //кнопка входа 
 teamStorage = window.localStorage;
 const searchInput = document.getElementById("search");
 const searchMenu = document.getElementById("search_menu");
-
 const addMemberButton = document.getElementById("addmember");
 const secondnameInput = document.getElementById("secondnameInput");
 const firstnameInput = document.getElementById("firstnameInput");
@@ -15,17 +14,15 @@ const phoneInput = document.getElementById('phoneInput')
 const emailMemberInput = document.getElementById('emailMemberInput')
 const telegramInput = document.getElementById('telegramInput')
 const capitanSwitch = document.getElementById('flexSwitchCheckDefault')
-
 const bodyMembers = document.getElementById('bodyMembers')
 const watchMembers = document.getElementById('watchMembers')
 const delMemberBut = document.getElementById("delMemberBut")
-
 const regisrtationBut = document.getElementById('regisrtationBut')
-
 const comandNameInput = document.getElementById('comandNameInput')
 const passInput = document.getElementById('passInput')
 const emailInput = document.getElementById('emailInput')
-
+const toRegistry = document.getElementById('toRegistry')
+const toLogIn = document.getElementById('toLogIn')
 
 for (let i = 0; (i = 0); i++) {
   if (
@@ -180,130 +177,8 @@ class Member{
   }
 }
 
-Member.members = []
 
-const member = new Member(
-  1,
-  true,
-  "Хуторной",
-  "Андрей",
-  "Андреевич",
-  "https://github.com/SidereaH",
-  "+79882578790",
-  "hutornoyaa@gmail.com",
-  "@Siderean"
-)
-
-Member.members.push(member)
-
-function delMember(memberid){
-  console.log("udalen", memberid)
-  Member.members.splice(memberid-1,1)
-  renderMembers()
-}
-function updateInform(memberid){
-
-}
-function changeCapitanState(memberid){
-  Member.members[memberid].capitanState = !Member.members[memberid].capitanState
-}
-addMemberButton.onclick = function(){
-  if(isEmpty(firstnameInput.value) === false && isEmpty(secondnameInput.value) === false && (isEmpty(phoneInput.value) === false || isEmpty(githubInput.value) === false|| isEmpty(emailMemberInput.value) === false))
-  {
-    const lengthMembers = Member.members.length+1
-
-    let isCapitan
-
-    if(capitanSwitch.checked === true){
-      isCapitan = true
-    }
-    else{
-      isCapitan = false
-    }
-
-    alert('Участник добавлен')
-
-    const newMember = new Member(
-      lengthMembers,
-      isCapitan,
-      secondnameInput.value,
-      firstnameInput.value,
-      middlenameInput.value,
-      githubInput.value,
-      phoneInput.value,
-      emailMemberInput.value,
-      telegramInput.value
-    )
-    Member.members.push(newMember)
-    renderMembers()
-  }
-  else {
-    //alert('Введите оставшиеся поля')
-  } 
-}
-
-
-regisrtationBut.onclick = function(){
-
-  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (isEmpty(comandNameInput.value) === false && isEmpty(emailInput.value) === false && isEmpty(passInput.value) === false) {
-
-    if(emailPattern.test(emailInput.value)){
-
-      let isComandName = checkComandName(comandNameInput.value)
-      if(isComandName === false){
-  
-        const comanda = new Team(
-          false,
-          Team.instanes.length + 1,
-          comandNameInput.value,
-          emailInput.value,
-          passInput.value,
-          searchCapitan(),
-          Member.members,
-          '',
-          '/img/banners/dstu.jpg',
-          'index9',
-          0
-        )
-        Team.instanes.push(comanda)
-        window.location.href = 'index.html';
-      }
-      else{
-        alert('Команда с таким названием уже существует')
-      }
-    }
-    else{
-      alert('Некорректный email-адрес')
-    }
-  }
-
-  else{
-    alert("Заполните пустые строки");
-  }
-
-}
-
-function checkComandName(nameComand){
-
-  for(const comanda in Team.instanes){
-    if(comanda.teamName === nameComand){
-      return true
-    }
-  }
-  return false
-  
-}
-
-
-function searchCapitan(){
-  for (const member in Member.members){
-    if(member.capitan === true){
-      return member
-    }
-
-  }
-}
+//index8 регистрация
 
 Team.instanes = [] // массив с экземплярами объектов
 Employer.companies = [] //массив с компаниями-работодателями
@@ -446,6 +321,204 @@ Team.instanes.push(habsyTeam6);
 Team.instanes.push(habsyTeam7);
 Team.instanes.push(habsyTeam8);
 Employer.companies.push(yandex);
+if(isCurrentLocation("http://127.0.0.1:5500/index8.html")){
+ 
+  capitanSwitch.disabled = findCap()
+  
+  Member.members = []
+  toLogIn.onclick = function(){
+    window.location.href = "http://127.0.0.1:5500/index.html"
+  }
+const member = new Member(
+  1,
+  true,
+  "Хуторной",
+  "Андрей",
+  "Андреевич",
+  "https://github.com/SidereaH",
+  "+79882578790",
+  "hutornoyaa@gmail.com",
+  "@Siderean"
+)
+
+Member.members.push(member)
+
+function delMember(memberid){
+  console.log("udalen", memberid)
+  Member.members.splice(memberid-1,1)
+  renderMembers()
+}
+function updateInform(memberid){
+
+}
+function changeCapitanState(memberid){
+  Member.members[memberid].capitanState = !Member.members[memberid].capitanState
+}
+function findCap(){
+  for(const member in Member.members){
+    if(Member.members[member].capitan === true){
+        return true
+    }
+  }
+  return false
+}
+function disableSwithcingCap(){
+  capitanSwitch.disabled = findCap()
+}
+addMemberButton.onclick = function(){
+
+  if(isEmpty(firstnameInput.value) === false && isEmpty(secondnameInput.value) === false && (isEmpty(phoneInput.value) === false || isEmpty(githubInput.value) === false|| isEmpty(emailMemberInput.value) === false))
+  {
+    let isCapitan
+  
+      if(capitanSwitch.checked === true){
+        isCapitan = true
+      }
+  
+      else{
+        isCapitan = false
+      }
+    if(findCap() === true && isCapitan === true){
+      return alert("В команде можеть быть только один капитан!")
+    }
+    else{
+      const lengthMembers = Member.members.length+1
+      
+      alert('Участник добавлен')
+  
+      const newMember = new Member(
+        lengthMembers,
+        isCapitan,
+        secondnameInput.value,
+        firstnameInput.value,
+        middlenameInput.value,
+        githubInput.value,
+        phoneInput.value,
+        emailMemberInput.value,
+        telegramInput.value
+      )
+      Member.members.push(newMember)
+      renderMembers()
+    }
+  }
+  else {
+    //alert('Введите оставшиеся поля')
+  } 
+}
+regisrtationBut.onclick = function(){
+
+  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (isEmpty(comandNameInput.value) === false && isEmpty(emailInput.value) === false && isEmpty(passInput.value) === false) {
+
+    if(emailPattern.test(emailInput.value)){
+
+      let isComandName = checkComandName(comandNameInput.value)
+      if(isComandName === false){
+        let isComandEmail = checkComandEmail(emailInput.value)
+        if(isComandEmail === false){
+          if(Member.members.length != 0){
+              if(findCap() === true){
+
+                const comanda = new Team(
+                  false,
+                  Team.instanes.length + 1,
+                  comandNameInput.value,
+                  emailInput.value,
+                  passInput.value,
+                  searchCapitan(),
+                  Member.members,
+                  '',
+                  '/img/banners/dstu.jpg',
+                  'index9',
+                  0
+                )
+                Team.instanes.push(comanda)
+                window.location.href = 'index.html';
+              }
+              else{
+                alert("Выберите капитана команды")
+              }
+            
+          }
+          else{
+            alert("Вы не добавили ни одного участника")
+          }
+        }
+        else{
+          alert("Такая почта уже зарегистрирована")
+        }
+      }
+      else{
+        alert('Команда с таким названием уже существует')
+      }
+    }
+    else{
+      alert('Некорректный email-адрес')
+    }
+  }
+
+  else{
+    alert("Заполните пустые строки");
+  }
+}
+
+
+function renderMembers(){
+
+  bodyMembers.innerHTML = ""
+
+  if(Member.members.length === 0){
+    bodyMembers.innerHTML = "<p>Команда пуста</p>"
+  }
+  else {
+    for (let i = 0; i < Member.members.length; i++){
+      bodyMembers.insertAdjacentHTML(
+        "beforeend",
+        getMemberTemplate(Member.members[i]))
+    }
+  }
+}
+renderMembers()
+
+watchMembers.onclick = function(){
+  renderMembers()
+}
+}
+
+
+
+function checkComandName(nameComand){
+
+  for(const comanda in Team.instanes){
+
+    if(Team.instanes[comanda].email ===nameComand){
+      return true
+    }
+  }
+  return false
+  
+}
+function checkComandEmail(emailComand){
+
+  for(const comanda in Team.instanes){
+
+    if(Team.instanes[comanda].teamEmail ===emailComand){
+      return true
+    }
+  }
+  return false
+  
+}
+
+
+function searchCapitan(){
+  for (const member in Member.members){
+    if(member.capitan === true){
+      return member
+    }
+
+  }
+}
 
 
 let succesful = false; //переменная успешной авторизации
@@ -456,6 +529,9 @@ if (
   isCurrentLocation("http://192.168.0.106:5500/index.html") === true
 ) {
   //проверка, если текущая страница - страница авторизации
+  toRegistry.onclick = function(){
+    window.location.href = "http://127.0.0.1:5500/index8.html"
+  }
   console.log("first windows");
   loginBut.onclick = function () {
     //обработка клика по кнопке входа
@@ -629,6 +705,13 @@ if (
 }
 function getTeamTemplate(team) {
   //функция, использующаяся в render; Передается команда(team), из которой берутся хначения экземпляра класса Team
+  let emp
+  if(team.isEmployer === true){
+    emp = "Просмотр работoдателя"
+  }
+  else{
+    emp = "Просмотр команды"
+  }
   return `
     <div class="card" style="width: 18rem;">
         <div class="card-cont">
@@ -638,35 +721,14 @@ function getTeamTemplate(team) {
         <div class="card-body">
             <h5 class="card-title">${team.teamName}</h5>
             <p class="card-text">${getShortestString(0,70,team.description)}</p>
-            <a href="${team.link}" class="btn btn-primary">Просмотр команды</a>
+            <a href="${team.link}" class="btn btn-primary">${emp}</a>
         </div>
     </div>`;
 }
 
 
 
-function renderMembers(){
 
-  bodyMembers.innerHTML = ""
-
-  if(Member.members.length === 0){
-    bodyMembers.innerHTML = "<p>Команда пуста</p>"
-  }
-  else {
-    for (let i = 0; i < Member.members.length; i++){
-      bodyMembers.insertAdjacentHTML(
-        "beforeend",
-        getMemberTemplate(Member.members[i]))
-    }
-  }
-  console.log('леле')
-  
-}
-renderMembers()
-
-watchMembers.onclick = function(){
-  renderMembers()
-}
 
 
 function updateMember(memberID){
@@ -705,26 +767,26 @@ function updateMember(memberID){
 
   renderMembers()
 }
-
+let findCapitan
 
 function getMemberTemplate(member) {
   //функция, использующаяся в render; Передается команда(member), из которой берутся значения экземпляра класса member
-
+  
   let capitanState
   if(member.capitan === true){
     capitanState = `<div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" checked >
     <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
   </div>`
-
+    
   }
-
   else{
     capitanState = `<div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" >
     <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
     </div>`
 }
+
   let mob
   if(isEmpty(member.phone)){
     mob = "-"
