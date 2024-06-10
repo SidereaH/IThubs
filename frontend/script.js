@@ -462,6 +462,12 @@ regisrtationBut.onclick = function(){
   }
 }
 
+renderMembers()
+
+watchMembers.onclick = function(){
+  renderMembers()
+}
+}
 
 function renderMembers(){
 
@@ -478,14 +484,6 @@ function renderMembers(){
     }
   }
 }
-renderMembers()
-
-watchMembers.onclick = function(){
-  renderMembers()
-}
-}
-
-
 
 function checkComandName(nameComand){
 
@@ -685,9 +683,10 @@ if (
   //isCurrentLocation("http://127.0.0.1:5500/index2.html") === true ||
   //isCurrentLocation("http://192.168.0.106:5500/index2.html") === true
   //isCurrentLocation("http://192.168.0.106:5500/index.html") === false ||
-  (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
-  isCurrentLocation("http://127.0.0.1:5500/") === false ) &&
-  (isCurrentLocation("http://127.0.0.1:5500/index8.html") === false)
+  isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
+  isCurrentLocation("http://127.0.0.1:5500/") === false  &&
+  isCurrentLocation("http://127.0.0.1:5500/index8.html") === false  &&
+  isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html") === false 
   
 ) {
 
@@ -1029,7 +1028,8 @@ function renderSearchResults() {
 if (
   (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
   isCurrentLocation("http://127.0.0.1:5500/") === false )  &&
-  isCurrentLocation("http://127.0.0.1:5500/index8.html")===false)  {
+  isCurrentLocation("http://127.0.0.1:5500/index8.html")===false&&
+  isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===false)  {
   const unlogbut = document.getElementById("unlog");
   unlogbut.onclick = function () {
     //teamStorage.setItem("succesfulSign", "false");
@@ -1091,4 +1091,9 @@ function getShortestString(begin, finish, string){
   else{
     return newStr + "..."
   }
+}
+if(isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===true){
+  //логика регистрации работодателя
+  //324 строка пример
+  //добавить константы кнопок и инпутов как в прошлый раз, дальше работать с ними. Функция валидации полей тоже есть, применяй
 }

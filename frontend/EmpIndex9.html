@@ -25,7 +25,7 @@
   </head>
   <body class="authocont">
     <main class="loginmain mx-3">
-      <h1 class="sign">Регистрация команды</h1>
+      <h1 class="sign">Регистрация работодателя</h1>
       <div class="log">
         <div class="login">
           <!--<p class="logText">
@@ -36,10 +36,10 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Название команды"
+              placeholder="Название компании"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              id="comandNameInput"
+              id="empNameInput"
             />
           </div>
         </div>
@@ -56,7 +56,7 @@
               placeholder="Почта"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              id="emailInput"
+              id="empEmailInput"
             />
           </div>
         </div>
@@ -71,7 +71,7 @@
             placeholder="Пароль"
             aria-label="Username"
             aria-describedby="basic-addon1"
-            id="passInput"
+            id="empPassInput"
           />
         </div>
 
@@ -84,7 +84,7 @@
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           >
-            Добавить участников
+            Добавить вакансии
           </button>
         </div>
 
@@ -98,7 +98,7 @@
             data-bs-target="#checkMembers"
             id="watchMembers"
           >
-            Посмотреть участников
+            Посмотреть вакансии
           </button>
         </div>
 
@@ -112,9 +112,9 @@
         <div>
           <a
             class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-            href="EmpIndex9.html"
+            href="index9.html"
           >
-            Зарегистрироваться как работодатель?
+            Зарегистрироваться как участник?
           </a>
           <br />
           <a
@@ -140,7 +140,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">
-                Информация об участнике
+                Информация о вакансии
               </h5>
               <button
                 type="button"
@@ -159,14 +159,13 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Фамилия"
+                    placeholder="Название"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     id="secondnameInput"
                   />
                 </div>
               </div>
-
               <div class="login">
                 <!--<p class="logText">
                       Логин
@@ -176,41 +175,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Имя"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    id="firstnameInput"
-                  />
-                </div>
-              </div>
-
-              <div class="login">
-                <!--<p class="logText">
-                      Логин
-                  </p>-->
-                <div class="input-group mb-3">
-                  <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Отчество"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    id="middlenameInput"
-                  />
-                </div>
-              </div>
-
-              <div class="login">
-                <!--<p class="logText">
-                      Логин
-                  </p>-->
-                <div class="input-group mb-3">
-                  <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Гитхаб"
+                    placeholder="Ключевые скиллы"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     id="githubInput"
@@ -227,7 +192,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Телефон"
+                    placeholder="Город"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     id="phoneInput"
@@ -244,39 +209,21 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Почта"
+                    placeholder="Адрес"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     id="emailMemberInput"
                   />
                 </div>
               </div>
-
-              <div class="login">
-                <!--<p class="logText">
-                      Логин
-                  </p>-->
-                <div class="input-group mb-3">
-                  <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Телеграм"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    id="telegramInput"
-                  />
-                </div>
-              </div>
-
               <div class="form-check form-switch">
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  id="flexSwitchCheckDefault"
+                  id="flexSwitchDistantVac"
                 />
                 <label class="form-check-label" for="flexSwitchCheckDefault"
-                  >Капитан</label
+                  >Возможно дистанционно</label
                 >
               </div>
             </div>
@@ -287,7 +234,7 @@
                 id="addmember"
                 onclick="disableSwithcingCap()"
               >
-                Добавить участника
+                Добавить вакансию
               </button>
             </div>
           </div>
@@ -298,7 +245,7 @@
         <div class="modal-dialog modal-dialog-w100">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Участники команды</h5>
+              <h5 class="modal-title">Вакансии</h5>
               <button
                 type="button"
                 class="btn-close"

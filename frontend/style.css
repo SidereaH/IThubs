@@ -238,3 +238,8 @@ nav {
   background-color: #9d5fee !important;
   border-color: #9d5fee !important
 }
+ p .link-success {
+  --bs-success-rgb: #9d5fee !important;
+
+  color: RGBA(var(--bs-success-rgb), var(--bs-link-opacity, 1)) !important;
+}
