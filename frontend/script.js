@@ -9,6 +9,7 @@ const addMemberButton = document.getElementById("addmember");
 const secondnameInput = document.getElementById("secondnameInput");
 const firstnameInput = document.getElementById("firstnameInput");
 const middlenameInput = document.getElementById('middlenameInput');
+
 const githubInput = document.getElementById('githubInput')
 const phoneInput = document.getElementById('phoneInput')
 const emailMemberInput = document.getElementById('emailMemberInput')
@@ -321,6 +322,7 @@ Team.instanes.push(habsyTeam6);
 Team.instanes.push(habsyTeam7);
 Team.instanes.push(habsyTeam8);
 Employer.companies.push(yandex);
+
 if(isCurrentLocation("http://127.0.0.1:5500/index8.html")){
  
   capitanSwitch.disabled = findCap()
@@ -467,6 +469,7 @@ renderMembers()
 watchMembers.onclick = function(){
   renderMembers()
 }
+
 }
 
 function renderMembers(){
@@ -1092,8 +1095,28 @@ function getShortestString(begin, finish, string){
     return newStr + "..."
   }
 }
+
 if(isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===true){
+  const employer = new Employer(
+    1,
+    true,
+    'Yandex',
+    'yandex@yandex',
+    'yandexsuper111'
+  )
+
+  Employer.companies = []
+  toLogIn.onclick = function(){
+    window.location.href = "http://127.0.0.1:5500/index.html"
+  }
+
+
+  
+
+
+}
+
+
   //логика регистрации работодателя
   //324 строка пример
   //добавить константы кнопок и инпутов как в прошлый раз, дальше работать с ними. Функция валидации полей тоже есть, применяй
-}
