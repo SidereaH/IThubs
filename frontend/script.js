@@ -22,7 +22,10 @@ const comandNameInput = document.getElementById('comandNameInput')
 const passInput = document.getElementById('passInput')
 const emailInput = document.getElementById('emailInput')
 const toRegistry = document.getElementById('toRegistry')
-const toLogIn = document.getElementById('toLogIn')
+NazvaniePochty = document.getElementById('NazvaniePochty')
+Nazvaniekomandy = document.getElementById('Nazvaniekomandy')
+
+
 
 for (let i = 0; (i = 0); i++) {
   if (
@@ -85,6 +88,7 @@ class Vacancy {
     this.canDistant = canDistant
   }
 }
+
 
 Vacancy.yandexVacancies = []
 const keyskillsDesign = ["HTML", "CSS", "JavaScript", "Next.js", "Vue.js", "Git"]
@@ -691,7 +695,7 @@ if (
   
 ) {
 
-  if(isCurrentLocation("http://127.0.0.1:5500/index6.html")){
+  if(isCurrentLocation("http://127.0.0.1:5500/index6.html"), isCurrentLocation("http://127.0.0.1:5500/index7.html")){
     renderComp();
   }
    else{
