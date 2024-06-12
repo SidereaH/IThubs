@@ -9,7 +9,6 @@ const addMemberButton = document.getElementById("addmember");
 const secondnameInput = document.getElementById("secondnameInput");
 const firstnameInput = document.getElementById("firstnameInput");
 const middlenameInput = document.getElementById('middlenameInput');
-
 const githubInput = document.getElementById('githubInput')
 const phoneInput = document.getElementById('phoneInput')
 const emailMemberInput = document.getElementById('emailMemberInput')
@@ -323,14 +322,15 @@ Team.instanes.push(habsyTeam7);
 Team.instanes.push(habsyTeam8);
 Employer.companies.push(yandex);
 
+
 if(isCurrentLocation("http://127.0.0.1:5500/index8.html")){
  
   capitanSwitch.disabled = findCap()
   
   Member.members = []
-  toLogIn.onclick = function(){
-    window.location.href = "http://127.0.0.1:5500/index.html"
-  }
+  // toLogIn.onclick = function(){
+  //   window.location.href = "http://127.0.0.1:5500/index.html"
+  // }
 const member = new Member(
   1,
   true,
@@ -492,7 +492,13 @@ function checkComandName(nameComand){
 
   for(const comanda in Team.instanes){
 
-    if(Team.instanes[comanda].email ===nameComand){
+    if(Team.instanes[comanda].teamName ===nameComand){
+      return true
+    }
+  }
+  for(const company in Employer.companies){
+
+    if(Employer.companies[company].teamName === nameComand){
       return true
     }
   }
@@ -504,6 +510,12 @@ function checkComandEmail(emailComand){
   for(const comanda in Team.instanes){
 
     if(Team.instanes[comanda].teamEmail ===emailComand){
+      return true
+    }
+  }
+  for(const company in Employer.companies){
+
+    if(Employer.companies[company].email ===emailComand){
       return true
     }
   }
@@ -1097,6 +1109,302 @@ function getShortestString(begin, finish, string){
 }
 
 if(isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===true){
+
+const empNameInput = document.getElementById('empNameInput')
+const empEmailInput = document.getElementById('empEmailInput')
+const empPassInput = document.getElementById('empPassInput')
+const addvacancy = document.getElementById('addvacancy')
+const nameVacancy = document.getElementById('nameVacancy')
+const skillsVacancy = document.getElementById('skillsVacancy')
+const cityVacancy = document.getElementById('cityVacancy')
+const addressVacancy = document.getElementById('addressVacancy')
+const flexSwitchDistantVac = document.getElementById('flexSwitchDistantVac')
+  
+Vacancy.vacancies = []
+
+const vacancy1 = new Vacancy(
+  1,
+  'Back-end разработчик',
+  'чтоб крутой был пж',
+  'GitHub, Golang, SQL',
+  'Лос-Анджелес',
+  'подворотня',
+  true
+)
+
+Vacancy.vacancies.push(vacancy1) ///пуш добавить в массив!!!!!
+renderVacancy()
+addvacancy.onclick = function(){
+
+if(isEmpty(nameVacancy.value) === false && isEmpty(skillsVacancy.value) === false && isEmpty(cityVacancy.value) === false && isEmpty(addressVacancy.value) === false)
+{
+  let canDistant
+
+    if(flexSwitchDistantVac.checked === true){
+      canDistant = true
+    }
+    else{
+      canDistant = false
+    }
+
+    const lengthVacancy = Vacancy.vacancies.length+1 //сделали айди вакансии (+1 к размеру массива)
+    
+    alert('Вакансия добавлена')
+
+    const newVacancy = new Vacancy( //новая вакансия, получает значения
+      lengthVacancy,
+      nameVacancy.value,
+      "",
+      skillsVacancy.value,
+      cityVacancy.value,
+      addressVacancy.value,
+      canDistant
+    )
+    Vacancy.vacancies.push(newVacancy)
+    renderVacancy()
+  
+
+}
+else {
+  //alert('Введите оставшиеся поля')
+} 
+}
+
+function renderVacancy(){ //отрисовывает шаблон в просмотре вакансий
+
+  bodyMembers.innerHTML = ""
+
+  if(Vacancy.vacancies.length === 0){
+    bodyMembers.innerHTML = "<p>Вакансий нет</p>"
+  }
+  else {
+    for (let i = 0; i < Vacancy.vacancies.length; i++){
+      bodyMembers.insertAdjacentHTML(
+        "beforeend",
+        getVacancyTemplate(Vacancy.vacancies[i]))
+    }
+  }
+}
+
+
+
+function getVacancyTemplate(vacancy) { //возвращает шаблон вакансий
+
+  let distantState
+
+  if(vacancy.canDistant === true)
+    {
+    distantState = `<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="checkCapitan${vacancy.id}" checked >
+    <label class="form-check-label" for="checkCapitan${vacancy.id}"></label>
+  </div>`
+  }
+  else{
+    distantState = `<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="checkCapitan${vacancy.id}">
+    <label class="form-check-label" for="checkCapitan${vacancy.id}"></label> 
+    </div>`
+}
+  return `
+    <div class="card membercard">    
+        <div class="card-body">
+        
+        <ul class="list-group list-group-horizontal ">
+  <li class="list-group-item list-group-item-head allli startleftli">Название</li>
+  <li class="list-group-item list-group-item-value allli startrightli">
+  
+              <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${vacancy.name}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="secNameMemberInput${vacancy.id}"
+              />
+            </div>
+            </li>
+</ul>
+        <ul class="list-group list-group-horizontal ">
+  <li class="list-group-item list-group-item-head allli ">Описание</li>
+  <li class="list-group-item list-group-item-value allli">
+    <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${vacancy.description}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="firstNameMemberInput${vacancy.id}"
+              />
+            </div>
+  </li>
+</ul>
+        <ul class="list-group list-group-horizontal ">
+  <li class="list-group-item list-group-item-head allli ">Скиллы</li>
+  <li class="list-group-item list-group-item-value allli ">
+    <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${vacancy.keyskills}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="midNameMemberInput${vacancy.id}"
+              />
+            </div>
+  </li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >Город</li>
+  <li class="list-group-item list-group-item-value allli">
+      <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${vacancy.city}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="gitMemberInput${vacancy.id}"
+              />
+            </div></li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >Адрес</li>
+  <li class="list-group-item list-group-item-value allli">
+  <div class="input-group">
+              <!--<span class="input-group-text" id="basic-addon1">LogIn</span>-->
+              <input
+                type="text"
+                class="form-control"
+                placeholder="${vacancy.address}"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                id="phoneMemberInput${vacancy.id}"
+              />
+            </div></li>
+</ul>
+<ul class="list-group list-group-horizontal">
+  <li class="list-group-item list-group-item-head allli" >Дистанционно</li>
+  <li class="list-group-item list-group-item-value allli">${distantState}
+  </li>
+</ul>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary mb-3 butdel"
+          id="delMemberBut"
+          onclick="updateVacancy(${vacancy.id});">
+          Сохранить изменения
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary mb-3 butdel"
+          id="delMemberBut"
+          onclick="delVacancy(${vacancy.id});">
+          Удалить вакансию
+        </button>
+    </div>`;
+}
+
+function updateVacancy(id){
+  const secNameMemberInput = document.getElementById(`secNameMemberInput${id}`)
+  const firstNameMemberInput = document.getElementById(`firstNameMemberInput${id}`)
+  const midNameMemberInput = document.getElementById(`midNameMemberInput${id}`)
+  const gitMemberInput = document.getElementById(`gitMemberInput${id}`)
+  const phoneMemberInput = document.getElementById(`phoneMemberInput${id}`)
+
+  if (isEmpty(secNameMemberInput.value) === false){
+    Vacancy.vacancies[id-1].name = secNameMemberInput.value
+  }
+  if (isEmpty(firstNameMemberInput.value) === false){
+    Vacancy.vacancies[id-1].description = firstNameMemberInput.value
+  }
+  if (isEmpty(midNameMemberInput.value) === false){
+    Vacancy.vacancies[id-1].keyskills = midNameMemberInput.value
+  }
+  if (isEmpty(gitMemberInput.value) === false){
+    Vacancy.vacancies[id-1].city = gitMemberInput.value
+  }
+  if (isEmpty(phoneMemberInput.value) === false){
+    Vacancy.vacancies[id-1].address = phoneMemberInput.value
+  }
+
+  const checkCapitan = document.getElementById(`checkCapitan${id}`)
+  Vacancy.vacancies[id-1].canDistant = checkCapitan.checked
+
+  renderVacancy()
+}
+
+  function delVacancy(id){
+    console.log("udalen", id)
+    Vacancy.vacancies.splice(id-1,1) //сплайс - удаление по айди, второй аргумент - длина удаления 
+    renderVacancy()
+  }
+
+  regisrtationBut.onclick = function(){
+
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (isEmpty(empNameInput.value) === false && isEmpty(empEmailInput.value) === false && isEmpty(empPassInput.value) === false) {
+  
+      if(emailPattern.test(empEmailInput.value)){
+  
+        let isComandName = checkComandName(empNameInput.value)
+        if(isComandName === false){
+          let isComandEmail = checkComandEmail(empEmailInput.value)
+          if(isComandEmail === false){
+          
+            // this.id = id
+            // this.isEmployer = isEmployer
+            // this.teamName = name
+            // this.email = email
+            // this.password = password
+            // this.description =description
+            // this.banner = banner
+            // this.link = link
+            // this.rate =  rate
+            // this.outsourcelink = outsourcelink
+            // this.vacancies = vacancies
+
+                  const comanda = new Employer(
+                    Employer.companies.length + 1,
+                    true,
+                    empNameInput.value,
+                    empEmailInput.value,
+                    empPassInput.value,
+                    '',
+                    '/img/banners/dstu.jpg',
+                    'index9',
+                    0,
+                    'yandex.ru',
+                    Vacancy.vacancies,
+                  )
+                  Employer.companies.push(comanda)
+                  window.location.href = 'index.html';
+
+          }
+          else{
+            alert("Такая почта уже зарегистрирована")
+          }
+        }
+        else{
+          alert('Команда с таким названием уже существует')
+        }
+      }
+      else{
+        alert('Некорректный email-адрес')
+      }
+    }
+  
+    else{
+      alert("Заполните пустые строки");
+    }
+  }
+  
   const employer = new Employer(
     1,
     true,
@@ -1106,17 +1414,7 @@ if(isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===true){
   )
 
   Employer.companies = []
-  toLogIn.onclick = function(){
-    window.location.href = "http://127.0.0.1:5500/index.html"
-  }
-
-
-  
-
-
 }
-
-
   //логика регистрации работодателя
   //324 строка пример
   //добавить константы кнопок и инпутов как в прошлый раз, дальше работать с ними. Функция валидации полей тоже есть, применяй
