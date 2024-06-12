@@ -1162,87 +1162,11 @@ function getShortestString(begin, finish, string){
     return newStr + "..."
   }
 }
-
-if(isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===true){
-
-const empNameInput = document.getElementById('empNameInput')
-const empEmailInput = document.getElementById('empEmailInput')
-const empPassInput = document.getElementById('empPassInput')
-const addvacancy = document.getElementById('addvacancy')
-const nameVacancy = document.getElementById('nameVacancy')
-const skillsVacancy = document.getElementById('skillsVacancy')
-const cityVacancy = document.getElementById('cityVacancy')
-const addressVacancy = document.getElementById('addressVacancy')
-const flexSwitchDistantVac = document.getElementById('flexSwitchDistantVac')
-  
-Vacancy.vacancies = []
-
-const vacancy1 = new Vacancy(
-  1,
-  'Back-end разработчик',
-  'чтоб крутой был пж',
-  'GitHub, Golang, SQL',
-  'Лос-Анджелес',
-  'подворотня',
-  true
-)
-
-Vacancy.vacancies.push(vacancy1) ///пуш добавить в массив!!!!!
-renderVacancy()
-addvacancy.onclick = function(){
-
-if(isEmpty(nameVacancy.value) === false && isEmpty(skillsVacancy.value) === false && isEmpty(cityVacancy.value) === false && isEmpty(addressVacancy.value) === false)
-{
-  let canDistant
-
-    if(flexSwitchDistantVac.checked === true){
-      canDistant = true
-    }
-    else{
-      canDistant = false
-    }
-
-    const lengthVacancy = Vacancy.vacancies.length+1 //сделали айди вакансии (+1 к размеру массива)
-    
-    alert('Вакансия добавлена')
-
-    const newVacancy = new Vacancy( //новая вакансия, получает значения
-      lengthVacancy,
-      nameVacancy.value,
-      "",
-      skillsVacancy.value,
-      cityVacancy.value,
-      addressVacancy.value,
-      canDistant
-    )
-    Vacancy.vacancies.push(newVacancy)
-    renderVacancy()
-  
-
+function getZtemplate(){
+  return`
+  <p>Z</p>
+  `
 }
-else {
-  //alert('Введите оставшиеся поля')
-} 
-}
-
-function renderVacancy(){ //отрисовывает шаблон в просмотре вакансий
-
-  bodyMembers.innerHTML = ""
-
-  if(Vacancy.vacancies.length === 0){
-    bodyMembers.innerHTML = "<p>Вакансий нет</p>"
-  }
-  else {
-    for (let i = 0; i < Vacancy.vacancies.length; i++){
-      bodyMembers.insertAdjacentHTML(
-        "beforeend",
-        getVacancyTemplate(Vacancy.vacancies[i]))
-    }
-  }
-}
-
-
-
 function getVacancyTemplate(vacancy) { //возвращает шаблон вакансий
 
   let distantState
@@ -1365,6 +1289,252 @@ function getVacancyTemplate(vacancy) { //возвращает шаблон ва�
         </button>
     </div>`;
 }
+function getVacancyProfileTemplate(vacancy) { //возвращает шаблон вакансий
+
+  let distantState
+
+  if(vacancy.canDistant === true)
+    {
+    distantState = `<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="checkCapitan${vacancy.id}" checked disabled>
+    <label class="form-check-label" for="checkCapitan${vacancy.id}"></label>
+  </div>`
+  }
+  else{
+    distantState = `<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="checkCapitan${vacancy.id} disabled">
+    <label class="form-check-label" for="checkCapitan${vacancy.id}"></label> 
+    </div>`
+}
+  return `
+    <ol class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Название</div>
+      ${vacancy.name}
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Описание</div>
+      ${vacancy.description}
+    </div>
+  </li>
+
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Скиллы</div>
+        ${vacancy.keyskills}
+    </div>
+    
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Город</div>
+      ${vacancy.city}
+    </div>
+    
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Адрес</div>
+      ${vacancy.address}
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Возможно дистанционно</div>
+      ${distantState}
+    </div>
+  </li>
+</ol>
+`
+}
+// this.memberID = memberID
+// this.capitan = capitan
+// this.secondname = secondname
+// this.firstname = firstname
+// this.middleName = middleName
+// this.github = github
+// this.phone = phone
+// this.email = email
+// this.telegram = telegram
+function getMemberProfileTemplate(member) { //возвращает шаблон вакансий
+
+    //функция, использующаяся в render; Передается команда(member), из которой берутся значения экземпляра класса member
+  
+    let capitanState
+    if(member.capitan === true){
+      capitanState = `<div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" checked >
+      <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
+    </div>`
+      
+    }
+    else{
+      capitanState = `<div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" >
+      <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
+      </div>`
+  } 
+  
+    let mob
+    if(isEmpty(member.phone)){
+      mob = "-"
+    }
+    else{
+      mob = member.phone
+    }
+    let tg
+    if(isEmpty(member.telegram)){
+      tg = "-"
+    }
+    else{
+      tg = member.telegram
+    }
+    let git
+    if(isEmpty(member.github)){
+      git = "-"
+    }
+    else{
+      git = member.github
+    }
+    let mail
+    if(isEmpty(member.github)){
+      mail = "-"
+    }
+    else{
+      mail = member.email
+    }
+  
+  
+  return `
+    <ol class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">ФИО</div>
+      ${member.secondname + " " + member.firstname + " " + member.middleName}
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Капитан</div>
+      ${capitanState}
+    </div>
+  </li>
+
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">GitHub</div>
+      <a href="${git ==="-" ? "" : git} " target="_blank">${git}</a>
+    </div>
+    
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Телефон</div>
+     ${mob}
+    </div>
+    
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Почта</div>
+      ${mail}
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Телеграмм</div>
+      <a href="${tg ==="-" ? "" : ("https://t.me/"+deleteDog(tg))} " target="_blank">${tg}</a>
+    </div>
+  </li>
+</ol>
+`
+}
+function deleteDog(str){
+  return str.replace("@", "")
+}
+if(isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===true){
+
+const empNameInput = document.getElementById('empNameInput')
+const empEmailInput = document.getElementById('empEmailInput')
+const empPassInput = document.getElementById('empPassInput')
+const addvacancy = document.getElementById('addvacancy')
+const nameVacancy = document.getElementById('nameVacancy')
+const skillsVacancy = document.getElementById('skillsVacancy')
+const cityVacancy = document.getElementById('cityVacancy')
+const addressVacancy = document.getElementById('addressVacancy')
+const flexSwitchDistantVac = document.getElementById('flexSwitchDistantVac')
+  
+Vacancy.vacancies = []
+
+const vacancy1 = new Vacancy(
+  1,
+  'Back-end разработчик',
+  'чтоб крутой был пж',
+  'GitHub, Golang, SQL',
+  'Лос-Анджелес',
+  'подворотня',
+  true
+)
+
+Vacancy.vacancies.push(vacancy1) ///пуш добавить в массив!!!!!
+renderVacancy()
+addvacancy.onclick = function(){
+
+if(isEmpty(nameVacancy.value) === false && isEmpty(skillsVacancy.value) === false && isEmpty(cityVacancy.value) === false && isEmpty(addressVacancy.value) === false)
+{
+  let canDistant
+
+    if(flexSwitchDistantVac.checked === true){
+      canDistant = true
+    }
+    else{
+      canDistant = false
+    }
+
+    const lengthVacancy = Vacancy.vacancies.length+1 //сделали айди вакансии (+1 к размеру массива)
+    
+    alert('Вакансия добавлена')
+
+    const newVacancy = new Vacancy( //новая вакансия, получает значения
+      lengthVacancy,
+      nameVacancy.value,
+      "",
+      skillsVacancy.value,
+      cityVacancy.value,
+      addressVacancy.value,
+      canDistant
+    )
+    Vacancy.vacancies.push(newVacancy)
+    renderVacancy()
+  
+
+}
+else {
+  //alert('Введите оставшиеся поля')
+} 
+}
+
+function renderVacancy(){ //отрисовывает шаблон в просмотре вакансий
+
+  bodyMembers.innerHTML = ""
+
+  if(Vacancy.vacancies.length === 0){
+    bodyMembers.innerHTML = "<p>Вакансий нет</p>"
+  }
+  else {
+    for (let i = 0; i < Vacancy.vacancies.length; i++){
+      bodyMembers.insertAdjacentHTML(
+        "beforeend",
+        getVacancyTemplate(Vacancy.vacancies[i]))
+    }
+  }
+}
+
+
+
 
 function updateVacancy(id){
   const secNameMemberInput = document.getElementById(`secNameMemberInput${id}`)
@@ -1474,16 +1644,25 @@ function updateVacancy(id){
   //324 строка пример
   //добавить константы кнопок и инпутов как в прошлый раз, дальше работать с ними. Функция валидации полей тоже есть, применяй
 if(isCurrentLocation("http://127.0.0.1:5500/index7.html")){
-
+  renderTeamName() 
+  const unlogbut = document.getElementById("unlog");
+  unlogbut.onclick = function () {
+    //teamStorage.setItem("succesfulSign", "false");
+    teamStorage.clear()
+    //window.location.href = 'index.html'
+    renderTeamName();
+  };
   const profBody = document.getElementById("profBody")
   
-  renderTeamName() 
   renderModal(teamStorage.getItem("isEmployee"))
   const bodyMembersProfile = document.getElementById("bodyMembersProfile")
-   if(teamStorage.getItem("isEmployee")){
+   if(teamStorage.getItem("isEmployee")==="false"){
     renderTeamProfile()
-    
     renderMembersInProf()
+   }
+   else{
+      renderEmployerProfile()
+      renderVacanciesInProf()
    }
  
 }
@@ -1493,10 +1672,29 @@ function renderMembersInProf(){
   bodyMembersProfile.innerHTML = ""
   for(const member in team.members){
     console.log(team.members[member])
-    bodyMembersProfile.insertAdjacentHTML("beforeend", getMemberTemplate(team.members[member]))
+    bodyMembersProfile.insertAdjacentHTML("beforeend", 
+      getMemberProfileTemplate(team.members[member])
+    )
   }
-  
 }
+function renderVacanciesInProf(){
+  let employer = getTeamorEmpById(teamStorage.getItem("authorizedTeam"), teamStorage.getItem("isEmployee")) //получаем команду или работодателя по id и состоянию teamStorage(лок хранилище)
+  
+  bodyMembersProfile.innerHTML = ""
+  for(const vacancy in employer.vacancies){
+    console.log(employer.vacancies[vacancy])
+    bodyMembersProfile.insertAdjacentHTML("beforeend", 
+      getVacancyProfileTemplate(employer.vacancies[vacancy])
+      //getZtemplate()
+    )
+  }
+}
+function renderEmployerProfile(){
+  let employer = getTeamorEmpById(teamStorage.getItem("authorizedTeam"), teamStorage.getItem("isEmployee")) //получаем команду или работодателя по id и состоянию teamStorage(лок хранилище)
+  profBody.innerHTML = ""
+  profBody.insertAdjacentHTML("beforeend", getEmployerProfileTemplate(employer))
+}
+
 function renderTeamProfile(){
   let team = getTeamorEmpById(teamStorage.getItem("authorizedTeam"), teamStorage.getItem("isEmployee")) //получаем команду или работодателя по id и состоянию teamStorage(лок хранилище)
   profBody.innerHTML = ""
@@ -1573,6 +1771,66 @@ function getRenderModalEmployerTemplate(){
             </div>
   `
  }
+function getEmployerProfileTemplate(employer){
+  return `
+  <div class="AboutMyself border d-inline-flex ">
+   <div class="card" style="width: 800px;">
+     <div class="card-cont">
+         <!--сюда фото-->
+         <img class="card-img-top" src="${employer.banner}" alt="Profile_Photo">
+     </div>
+     <div class="card-body">
+         <div class="card-text" id="Nazvaniekomandy">${employer.teamName}</div>
+         <div class="card-text" id="NazvaniePochty">${employer.email}</div>
+         
+     </div>
+ </div>
+   <div class="InfoProfPonyal d-inline-flex p-5">
+     <div class="container">
+       <div class="row">
+           <div class="col">
+               <div class="card">
+                   <div class="card-header">
+                       <button class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#info3" aria-expanded="false" aria-controls="info3">Описание</button>
+                   </div>
+                   <div class="collapse" id="info3">
+                       <div class="card-body">
+                           ${employer.description}
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="card">
+                   <div class="card-header">
+                       <button class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#info4" aria-expanded="false" aria-controls="info4">Внешний источник</button>
+                   </div>
+                   <div class="collapse" id="info4">
+                       <div class="card-body">
+                          <a href=" ${employer.outsourcelink}" target="_blank">${employer.outsourcelink} </a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="card">
+                   <div class="card-header">
+                       <button class="btn btn-info" data-bs-toggle="modal"
+                       data-bs-target="#checkMembers">Вакансии</button>
+                   </div>
+                   <div class="collapse" id="info5">
+                       <div class="card-body" id="vacancyInProf">
+ 
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   </div>
+  </div>
+   `
+}
 function getrenderTeamProfileTemplate(team){
     return `
  <div class="AboutMyself border d-inline-flex ">
