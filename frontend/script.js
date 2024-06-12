@@ -325,12 +325,10 @@ Employer.companies.push(yandex);
 
 if(isCurrentLocation("http://127.0.0.1:5500/index8.html")){
  
-  capitanSwitch.disabled = findCap()
+  capitanSwitch.disabled = findCap() //кэп перпебирпает мемберов, если капитан - тру
   
   Member.members = []
-  // toLogIn.onclick = function(){
-  //   window.location.href = "http://127.0.0.1:5500/index.html"
-  // }
+
 const member = new Member(
   1,
   true,
@@ -799,7 +797,7 @@ function getMemberTemplate(member) {
     <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" >
     <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
     </div>`
-}
+} 
 
   let mob
   if(isEmpty(member.phone)){
@@ -832,7 +830,7 @@ function getMemberTemplate(member) {
 
 
 
-  console.log(mob)
+  console.log(mob) //шаблон всей карточки
   return `
     <div class="card membercard">    
         <div class="card-body">
