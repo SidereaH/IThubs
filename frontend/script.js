@@ -24,6 +24,7 @@ const emailInput = document.getElementById('emailInput')
 const toRegistry = document.getElementById('toRegistry')
 const toLogIn = document.getElementById('toLogIn')
 
+const modal = document.getElementById('modal')
 for (let i = 0; (i = 0); i++) {
   if (
     isCurrentLocation("http://127.0.0.1:5500/index.html") === true &&
@@ -133,10 +134,8 @@ class Team {
     this.teamName = name
     this.teamEmail = email
     this.password = password
-    
     this.capitan = capitan
     this.members = members
-    
     this.description = description
     this.banner = banner
     this.link = link
@@ -183,75 +182,113 @@ class Member{
 Team.instanes = [] // массив с экземплярами объектов
 Employer.companies = [] //массив с компаниями-работодателями
 
-teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
-
+//teamMembers = ["Vera Kostenko", "Andrey Hutornoy"] //пример массива с участниками
+Member.teamMembers = []
+const teamMember = new Member(
+  Member.teamMembers.length,
+  true,
+  "Хуторной",
+  "Андрей",
+  "Андреевич",
+  "https://github.com/SidereaH",
+  "89882578790",
+  "hutornoyaa@gmail.com",
+  "@Siderean"
+)
+Member.teamMembers.push(teamMember)
+const teamMember2 = new Member(
+  Member.teamMembers.length,
+  true,
+  "Костенко",
+  "Вероника",
+  "Андреевна",
+  "https://github.com/fverf",
+  "-",
+  "fverochka19@gmail.com",
+  "@ovich"
+)
+Member.teamMembers.push(teamMember2)
+const teamMember3 = new Member(
+  Member.teamMembers.length,
+  true,
+  "Елисеев",
+  "Никита",
+  "Михайлович",
+  "https://github.com/whykitaa",
+  "-",
+  "niki2004@gmail.com",
+  "@whykitaa"
+)
+Member.teamMembers.push(teamMember3)
 const habsyTeam = new Team(
   false,
   Team.instanes.length + 1,
   "TeamSpirit",
   "hutornoyaa@gmail.com",
   "Habsy2024",
-  "Siderea",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "best of the best",
   "/img/banners/Team-Spirit.png",
-  "index4.html",
+  "index7.html",
   4
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-i+=1
+Team.instanes.push(habsyTeam);
 const habsyTeam9 = new Team(
   false,
   Team.instanes.length + 1,
   "1488",
   "hutornoyaa@gmail.com",
   "Habsy2024",
-  "Siderea",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "best of the best",
   "/img/banners/Team-Spirit.png",
-  "index5.html",
+  "index7.html",
   4
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
-i+=1
+
 const habsyTeam2 = new Team(
   false,
   Team.instanes.length + 1,
   "Gladiators",
   "hutornoyaa2@gmail.com",
   "Habsy20242",
-  "Siderea2",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "can do everything",
   "/img/banners/gg.png",
-  "index3.html",
+  "index7.html",
   2
 );
-i+=1
+Team.instanes.push(habsyTeam2);
 const habsyTeam3 = new Team(
   false,
   Team.instanes.length + 1,
   "BetBoom",
   "hutornoyaa3@gmail.com",
   "Habsy2024",
-  "Siderea",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "best of the best",
   "/img/banners/bb.png",
-  "index4.html",5
+  "index7.html",5
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+Team.instanes.push(habsyTeam3);
 i+=1
 const habsyTeam4 = new Team(
   false,
   Team.instanes.length + 1,
   "Хабсы",
   "hutornoyaa4@gmail.com",
-  "Siderea2",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "can do everything",
   "/img/banners/ithub.png",
-  "index3.html",
+  "index7.html",
   5
 );
+Team.instanes.push(habsyTeam4);Team.instanes.push(habsyTeam4);
 i+=1
 const habsyTeam5 = new Team(
   false,
@@ -259,13 +296,14 @@ const habsyTeam5 = new Team(
   "BetBoom",
   "hutornoyaa5@gmail.com",
   "Habsy2024",
-  "Siderea",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "best of the best",
   "/img/banners/bb.png",
-  "index4.html",
+  "index7.html",
   3
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+Team.instanes.push(habsyTeam5);Team.instanes.push(habsyTeam5);
 i+=1
 const habsyTeam6 = new Team(
   false,
@@ -273,14 +311,16 @@ const habsyTeam6 = new Team(
   "ДГТУ",
   "hutornoyaa6@gmail.com",
   "Habsy20242",
-  "Siderea2",
+  teamMember,
 
-  teamMembers,
+  Member.teamMembers,
   "can do everything",
   "/img/banners/dstu.jpg",
-  "index3.html",
+  "index7.html",
   4
 );
+
+Team.instanes.push(habsyTeam6);Team.instanes.push(habsyTeam6);
 i+=1
 const habsyTeam7 = new Team(
   false,
@@ -288,14 +328,15 @@ const habsyTeam7 = new Team(
   "whatTheHell",
   "hutornoya7@gmail.com",
   "Habsy2024",
-  "Siderea",
+  teamMember,
 
-  teamMembers,
+  Member.teamMembers,
   "best of the best",
   "/img/banners/ithub.png",
-  "index4.html",
+  "index7.html",
   3
 ); // пример создания команды (как экземпляр класса через конструктор, описанный выше стр.15)
+Team.instanes.push(habsyTeam7);Team.instanes.push(habsyTeam7);
 i+=1
 const habsyTeam8 = new Team(
   false,
@@ -303,23 +344,17 @@ const habsyTeam8 = new Team(
   "BetBoom",
   "hutornoyaa8@gmail.com",
   "Habsy20242",
-  "Siderea2",
-  teamMembers,
+  teamMember,
+  Member.teamMembers,
   "can do everything",
   "/img/banners/bb.png",
-  "index3.html",
+  "index7.html",
   5
 );
-
-
-Team.instanes.push(habsyTeam); //добавляем команду в масив, хранящий экземпляры класса
-Team.instanes.push(habsyTeam2);
-Team.instanes.push(habsyTeam3);
-Team.instanes.push(habsyTeam4);
-Team.instanes.push(habsyTeam5);
-Team.instanes.push(habsyTeam6);
-Team.instanes.push(habsyTeam7);
+ //добавляем команду в масив, хранящий экземпляры класса
 Team.instanes.push(habsyTeam8);
+
+
 Employer.companies.push(yandex);
 
 
@@ -621,6 +656,26 @@ function getTeamNameByTeamId(ids) {
     }
   }
 }
+function getTeamorEmpById(ids, isEmployer) {
+  let id  = Number(ids)
+  if(isEmployer === "false"){
+    for (const team in Team.instanes) {
+      if (Team.instanes[team].id === id) {
+        //console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
+        return Team.instanes[team];
+      }
+    }
+  }
+  else{
+    for (const company in Employer.companies) {
+      if (Employer.companies[company].id === id) {
+        //console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
+        return Employer.companies[company];
+      }
+    }
+  }
+ 
+}
 function getCompanyNameByCompanyId(ids) {
   let id  = Number(ids)
   for (const employee in Employer.companies) {
@@ -632,16 +687,15 @@ function getCompanyNameByCompanyId(ids) {
 }
 function getlinkOfAuthorisedByTeamId(id) {
   for (const team in Team.instanes) {
-    if (Team.instanes[team].id === id) {
+    if (Team.instanes[team].id == id) {
       //console.log(Team.instanes[team].id === id, id, Team.instanes[team].id);
       return Team.instanes[team].link;
     }
   }
 }
 function getlinkOfAuthorisedByEmployeeId(ids) {
-  let id = Number(ids)
   for (const employee in Employer.companies) {
-    if (Employer.companies[employee].id === id) {
+    if (Employer.companies[employee].id == ids) {
       //console.log(Employee.companies[employee].link);
       return Employer.companies[employee].link;
     }
@@ -699,7 +753,9 @@ if (
   isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
   isCurrentLocation("http://127.0.0.1:5500/") === false  &&
   isCurrentLocation("http://127.0.0.1:5500/index8.html") === false  &&
-  isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html") === false 
+  isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html") === false &&
+  isCurrentLocation("http://127.0.0.1:5500/index7.html") === false
+
   
 ) {
 
@@ -1004,9 +1060,8 @@ function getTeamNameTemplate() {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">${nameOfAuthorised}</a>
                      <ul class="dropdown-menu">
+                     <li><a class="dropdown-item" href="index2.html">Главная</a></li>
                     <li><a class="dropdown-item" href="${linkOfAuthorised}">Профиль</a></li>
-                    <li><a class="dropdown-item" href="#">Другое действие</a></li>
-                    <li><a class="dropdown-item" href="#">Что-то еще здесь</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><button class="dropdown-item" id="unlog"> Выйти </button></li>
                     </ul>
@@ -1042,7 +1097,9 @@ if (
   (isCurrentLocation("http://127.0.0.1:5500/index.html") === false &&
   isCurrentLocation("http://127.0.0.1:5500/") === false )  &&
   isCurrentLocation("http://127.0.0.1:5500/index8.html")===false&&
-  isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===false)  {
+  isCurrentLocation("http://127.0.0.1:5500/EmpIndex9.html")===false &&
+  isCurrentLocation("http://127.0.0.1:5500/index7.html")===false
+)  {
   const unlogbut = document.getElementById("unlog");
   unlogbut.onclick = function () {
     //teamStorage.setItem("succesfulSign", "false");
@@ -1416,3 +1473,163 @@ function updateVacancy(id){
   //логика регистрации работодателя
   //324 строка пример
   //добавить константы кнопок и инпутов как в прошлый раз, дальше работать с ними. Функция валидации полей тоже есть, применяй
+if(isCurrentLocation("http://127.0.0.1:5500/index7.html")){
+
+  const profBody = document.getElementById("profBody")
+  
+  renderTeamName() 
+  renderModal(teamStorage.getItem("isEmployee"))
+  const bodyMembersProfile = document.getElementById("bodyMembersProfile")
+   if(teamStorage.getItem("isEmployee")){
+    renderTeamProfile()
+    
+    renderMembersInProf()
+   }
+ 
+}
+function renderMembersInProf(){
+  let team = getTeamorEmpById(teamStorage.getItem("authorizedTeam"), teamStorage.getItem("isEmployee")) //получаем команду или работодателя по id и состоянию teamStorage(лок хранилище)
+  
+  bodyMembersProfile.innerHTML = ""
+  for(const member in team.members){
+    console.log(team.members[member])
+    bodyMembersProfile.insertAdjacentHTML("beforeend", getMemberTemplate(team.members[member]))
+  }
+  
+}
+function renderTeamProfile(){
+  let team = getTeamorEmpById(teamStorage.getItem("authorizedTeam"), teamStorage.getItem("isEmployee")) //получаем команду или работодателя по id и состоянию teamStorage(лок хранилище)
+  profBody.innerHTML = ""
+  profBody.insertAdjacentHTML("beforeend", getrenderTeamProfileTemplate(team))
+}
+function renderModal(isEmployer){
+  modal.innerHTML = ""
+  if(isEmployer == "false"){
+    modal.insertAdjacentHTML("beforeend",getRenderModalTemplate()) 
+  }
+  else{
+    modal.insertAdjacentHTML("beforeend",getRenderModalEmployerTemplate()) 
+  }
+}
+function getRenderModalTemplate(){
+ return`
+     <div class="modal fade" tabindex="-1" id="checkMembers">
+        <div class="modal-dialog modal-dialog-w100">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Участники</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="bodyMembersProfile">
+              
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Закрыть
+              </button>
+              </div>
+              </div>
+              </div>
+              </div>
+ `
+}
+function getRenderModalEmployerTemplate(){
+  return`
+      <div class="modal fade" tabindex="-1" id="checkMembers">
+         <div class="modal-dialog modal-dialog-w100">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">Вакансии</h5>
+               <button
+                 type="button"
+                 class="btn-close"
+                 data-bs-dismiss="modal"
+                 aria-label="Close"
+               ></button>
+             </div>
+             <div class="modal-body" id="bodyMembersProfile">
+               
+             </div>
+             <div class="modal-footer">
+               <button
+                 type="button"
+                 class="btn btn-primary"
+                 data-bs-dismiss="modal"
+               >
+                 Закрыть
+               </button>
+               </div>
+               </div>
+               </div>
+            </div>
+  `
+ }
+function getrenderTeamProfileTemplate(team){
+    return `
+ <div class="AboutMyself border d-inline-flex ">
+  <div class="card" style="width: 800px;">
+    <div class="card-cont">
+        <!--сюда фото-->
+        <img class="card-img-top" src="${team.banner}" alt="Profile_Photo">
+    </div>
+    <div class="card-body">
+        <div class="card-text" id="Nazvaniekomandy">${team.teamName}</div>
+        <div class="card-text" id="NazvaniePochty">${team.teamEmail}</div>
+        
+    </div>
+</div>
+  <div class="InfoProfPonyal d-inline-flex p-5">
+    <div class="container">
+      <div class="row">
+          <div class="col">
+              <div class="card">
+                  <div class="card-header">
+                      <button class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#info3" aria-expanded="false" aria-controls="info3">Описание</button>
+                  </div>
+                  <div class="collapse" id="info3">
+                      <div class="card-body">
+                          ${team.description}
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card">
+                  <div class="card-header">
+                      <button class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#info4" aria-expanded="false" aria-controls="info4">Капитан</button>
+                  </div>
+                  <div class="collapse" id="info4">
+                      <div class="card-body">
+                          ${team.capitan.secondname + " " + team.capitan.firstname}
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card">
+                  <div class="card-header">
+                      <button class="btn btn-info" data-bs-toggle="modal"
+                      data-bs-target="#checkMembers">Участники команды</button>
+                  </div>
+                  <div class="collapse" id="info5">
+                      <div class="card-body" id="membersInProf">
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+ </div>
+  `
+}
