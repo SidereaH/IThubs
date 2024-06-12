@@ -1366,18 +1366,16 @@ function getMemberProfileTemplate(member) { //возвращает шаблон 
     let capitanState
     if(member.capitan === true){
       capitanState = `<div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" checked >
+      <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" checked disabled >
       <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
-    </div>`
-      
+    </div>` 
     }
     else{
       capitanState = `<div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID}" >
+      <input class="form-check-input" type="checkbox" id="checkCapitan${member.memberID} disabled" >
       <label class="form-check-label" for="checkCapitan${member.memberID}"></label>
       </div>`
   } 
-  
     let mob
     if(isEmpty(member.phone)){
       mob = "-"
